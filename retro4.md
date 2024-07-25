@@ -13,3 +13,19 @@ En desarrollo, fecha límite de presentación 6 de Agosto de 2024 a las 23:59 ho
   - Creación
   - Edición
   - Eliminación
+
+
+Crear imagenes por Franco. Cuadradas 1080 x 1080 px. 
+
+Armar el JSON
+Listado, detalles
+Tamaño y Peso: Dimensiones de 30x30x15 cm, peso de 1.5 kg.
+Duración de la Batería: Hasta 30 minutos de vuelo.
+Alcance: 5 km de distancia máxima.
+Velocidad: Velocidad máxima de 60 km/h.
+Cámara: Resolución de 12 MP para fotos y video 4K.
+Estabilización: Gimbal de 3 ejes para una estabilización óptima.
+Sensores: Incluye GPS y sensores de obstáculos.
+
+Trabajo en clase
+JSON
