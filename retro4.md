@@ -3,7 +3,7 @@
 
 Este documento resume la retrospectiva del equipo DronSAR al completar el cuarto sprint del proyecto. Fecha limite de entrega 6 de Agosto del 2024. Para más detalles sobre las directrices del proyecto, se puede consultar el siguiente [```enlace```](https://drive.google.com/file/d/11gyHYZFvCottMpBKmS9nCtpUcMLj2xJf/view). 
 
-## > Resumen de entregables
+## Resumen de entregables
 - Archivo retro.md con el resultado de la retrospectiva.
 - Archivo daily.md con sus opiniones sobre las daylies/weeklies. (Opcional)
 - Tablero de trabajo actualizado.
@@ -37,7 +37,10 @@ A continuacion se ofrece el enlance al Tablero de trabajo, usando la plataforma 
 ```bash
 .
 ├── main/
-│   ├── desing/
+│   ├── controllers/
+│   │       └── dron.js          # Controlador para la lógica de los productos
+│   ├── models/
+│   │       └── drones.json      # Archivo JSON con los datos de los drones
 │   │── public/
 │   │   ├── CSS/
 │   │   │   ├── login.css         # Estilos para la página de inicio de sesión
@@ -53,18 +56,27 @@ A continuacion se ofrece el enlance al Tablero de trabajo, usando la plataforma 
 │   │        ├── fondo2.jpg               # Otra imagen de fondo
 │   │        ├── imagen-login.png         # Imagen para la página de inicio de sesión
 │   │        └── imagen-principal.png     # Imagen principal de la aplicación
+│   │── routes/
+│   │        └── dron.js                  # Gestiona las rutas del CRUD para el producto utilizando Express.js.
+│   │── services/
+│   │        ├── datasources.js           # Configuración de fuentes de datos
+│   │        └── fileUpload.js            # Lógica de carga de archivos
 │   └── views/
 │       ├── partials/
 │       │    ├── footer.ejs               # Parcial para el pie de página
 │       │    ├── head.ejs                 # Parcial para la cabecera del documento
-│       │    └── header.ejs               # Parcial para la cabecera del sitio
-│       ├── products/ 
+│       │    ├── header.ejs               # Parcial para la cabecera del sitio
+│       │    └── script.ejs               # Scripts para la funcionalidad y la interactividad del sitio
+│       ├── products/
+│       │    ├── agregarProducto.ejs      # Vista para agregar producto
 │       │    ├── carrito-compra.ejs       # Página del carrito de compra
-│       │    └── detalle-producto.ejs     # Página de detalle de producto
+│       │    ├── detalle-producto.ejs     # Página de detalle de producto
+│       │    └── productos.ejs            # Vista general de productos
 │       ├── users/
 │       │    ├── login.ejs                # Página de inicio de sesión
 │       │    └── registro.ejs             # Página de registro de usuario
-│       └── index.ejs                     # Página principal de la aplicación
+│       ├── index.ejs                     # Página principal de la aplicación
+│       └── not-found.ejs                 # Página para manejo de error 404
 │ 
 ├── wireframes/                 # Carpeta para los wireframes del proyecto
 ├── .gitignore                  # Archivo de configuración para ignorar archivos en Git
