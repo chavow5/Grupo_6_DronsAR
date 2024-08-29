@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "12464e62-0769-4564-9805-6ba44c1fa5dd",
+    "nombres": "david",
+    "apellidos": "ramirez",
+    "email": "david@gmail.com",
+    "password": "$2a$10$dBP63PPhnWd091Xd2RKWserFcedFz0YPmKp7WALjh1G4cxxu4wFq.",
+    "profileImage": "default.png"
+  }
+]
