@@ -42,7 +42,6 @@ const usersController = {
 
   login: async (req, res) => {
     try {
-      console.log(req.body['remember-me'].checked);
        const { email, password } = req.body;
        const users = await userDatasource.load(); // Cambiado a userDatasource.load()
        const user = users.find(u => u.email === email);
@@ -52,9 +51,8 @@ const usersController = {
         
          // imput check valor
           
-          if (req.body['remember-me'] == 'on') {
+          if (req.body['remember']==='on') {
             console.log('entre');
-             
             res.cookie('userEmail', email, { maxAge: 1000 * 60 * 60 * 24 * 30 });
           }
           return res.redirect('/users/perfil');
