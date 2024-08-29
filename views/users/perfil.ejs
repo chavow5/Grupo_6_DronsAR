@@ -1,0 +1,14 @@
+<%- include('../partials/head') %>
+
+<body>
+    
+    <div class="container">
+        <h1>Perfil de <%= user.nombres %> <%= user.apellidos %></h1>
+        <p>Email: <%= user.email %></p>
+        <p><img src="/img/users/<%= user.profileImage %>" alt="Profile Image" /></p>
+        <form action="/users/logout" method="POST">
+            <button type="submit">Cerrar sesión</button>
+        </form>
+    </div>
+</body>
+</html>
