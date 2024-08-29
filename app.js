@@ -3,8 +3,25 @@ const path = require("path");
 const app = express();
 
 const methodOverride = require("method-override");
-//project modules
-const dronRouter = require("./routes/dron.js");
+const session = require('express-session');
+const cookies = require('cookie-parser');
+
+
+
+// Rutas de productos
+const dronRouter = require("./routes/dron");
+// Rutas de usuarios
+const usersRoutes = require('./routes/users');
+const authMiddleware = require('./middleware/authMiddleware');
+
+// Configuración de sesiones y cookies
+app.use(session({
+    secret: 'dronsarSecret',
+    resave: false,
+    saveUninitialized: false
+  }));
+  app.use(cookies());
+
 
 // Definir la ubicación de los archivos estáticos
 app.use(express.static('public'));
@@ -15,7 +32,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride("_method"));
 
+
 const port = process.env.PORT ?? 3000;
+
+// Proteger rutas con middleware
+// Rutas para autenticación
+app.get('/users/login', authMiddleware.guest, (req, res) => {
+    res.render('users/login');
+});
+
+app.get('/users/perfil', authMiddleware.auth, (req, res) => {
+    res.render('users/perfil', { user: req.session.user });
+});
 
 app.get('/', (req, res) => {
     res.render('index');
@@ -39,6 +67,11 @@ app.get('/carrito-compra', (req, res) => {
 
 // Incluir las rutas del controlador de drones
 app.use('/productos', dronRouter);
+
+// Usar las rutas de usuarios
+app.use('/users', usersRoutes);
+
+
 
 app.use((req, res) => {
     res.status(404).render("not-found");
