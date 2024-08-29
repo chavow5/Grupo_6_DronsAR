@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const userDatasource = require('../services/userDatasource');
 const userFileUpload = require('../services/userFileUpload');
+const { log } = require('console');
 
 const usersController = {
   register: async (req, res) => {
@@ -41,14 +42,20 @@ const usersController = {
 
   login: async (req, res) => {
     try {
+      console.log(req.body['remember-me'].checked);
        const { email, password } = req.body;
        const users = await userDatasource.load(); // Cambiado a userDatasource.load()
        const user = users.find(u => u.email === email);
- 
+      
        if (user && bcrypt.compareSync(password, user.password)) {
           req.session.user = user;
-          if (req.body['remember-me']) {
-             res.cookie('userEmail', email, { maxAge: 1000 * 60 * 60 * 24 * 30 });
+        
+         // imput check valor
+          
+          if (req.body['remember-me'] == 'on') {
+            console.log('entre');
+             
+            res.cookie('userEmail', email, { maxAge: 1000 * 60 * 60 * 24 * 30 });
           }
           return res.redirect('/users/perfil');
        }
