@@ -39,55 +39,53 @@ A continuacion se ofrece el enlance al Tablero de trabajo, usando la plataforma 
 ## 📂 Estructura del Proyecto
 ```bash
 .
-├── main/
-│   ├── controllers/
-│   │       └── dron.js          # Controlador para la lógica de los productos
-│   ├── models/
-│   │       └── drones.json      # Archivo JSON con los datos de los drones
-│   │── public/
-│   │   ├── CSS/
-│   │   │   ├── login.css         # Estilos para la página de inicio de sesión
-│   │   │   ├── registro.css      # Estilos para la página de registro
-│   │   │   └── styles.css        # Estilos generales de la aplicación
-│   │   └── img/
-│   │        ├── DRONSAR PROP-10.svg     # Imagen vectorial del logo DRONSAR
-│   │        ├── d1.png                   # Imagen de producto
-│   │        ├── d2.png                   # Imagen de producto
-│   │        ├── d3.png                   # Imagen de producto
-│   │        ├── drone2.gif               # Animación de drone
-│   │        ├── fondo.jpg                # Imagen de fondo para la aplicación
-│   │        ├── fondo2.jpg               # Otra imagen de fondo
-│   │        ├── imagen-login.png         # Imagen para la página de inicio de sesión
-│   │        └── imagen-principal.png     # Imagen principal de la aplicación
-│   │── routes/
-│   │        └── dron.js                  # Gestiona las rutas del CRUD para el producto utilizando Express.js.
-│   │── services/
-│   │        ├── datasources.js           # Configuración de fuentes de datos
-│   │        └── fileUpload.js            # Lógica de carga de archivos
-│   └── views/
-│       ├── partials/
-│       │    ├── footer.ejs               # Parcial para el pie de página
-│       │    ├── head.ejs                 # Parcial para la cabecera del documento
-│       │    ├── header.ejs               # Parcial para la cabecera del sitio
-│       │    └── script.ejs               # Scripts para la funcionalidad y la interactividad del sitio
-│       ├── products/
-│       │    ├── agregarProducto.ejs      # Vista para agregar producto
-│       │    ├── carrito-compra.ejs       # Página del carrito de compra
-│       │    ├── detalle-producto.ejs     # Página de detalle de producto
-│       │    └── productos.ejs            # Vista general de productos
-│       ├── users/
-│       │    ├── login.ejs                # Página de inicio de sesión
-│       │    └── registro.ejs             # Página de registro de usuario
-│       ├── index.ejs                     # Página principal de la aplicación
-│       └── not-found.ejs                 # Página para manejo de error 404
-│ 
-├── wireframes/                 # Carpeta para los wireframes del proyecto
-├── .gitignore                  # Archivo de configuración para ignorar archivos en Git
-├── README.md                   # Archivo con información básica del proyecto
-├── Retro.md                    # Archivo para registrar retrospectivas del proyecto SPRINT2
-├── Retro3.md                   # Archivo para registrar retrospectivas del proyecto SPRINT3
-├── Daily.md                    # Archivo de registro diario
-├── app.js                      # Archivo principal de la aplicación (JavaScript)
-├── package-lock.json           # Archivo de bloqueo de versiones de paquetes (npm)
-└── package.json                # Archivo de configuración de paquetes (npm)
+main/
+├── controllers/                   # Controladores que manejan la lógica de negocio de la aplicación
+│   ├── dron.js                        # Controlador para operaciones relacionadas con drones
+│   └── usersController.js             # Controlador para operaciones relacionadas con usuarios
+├── Informacion-Integrantes/       # Información de los integrantes del grupo (Directorio)
+├── middleware/                    # Middleware para gestionar funciones intermedias en las solicitudes
+│   └── authMiddleware.js              # Middleware de autenticación para proteger rutas
+├── models/                        # Modelos de datos que representan las estructuras y esquemas
+│   ├── drones.json                    # Datos de drones en formato JSON
+│   └── users.json                     # Datos de usuarios en formato JSON
+├── public/                        # Archivos estáticos como CSS, JavaScript del lado del cliente, imágenes
+│   ├── css/                           # Archivos de estilos CSS
+│   ├── fonts/                         # Fuentes utilizadas en el proyecto
+│   ├── icomoon/                       # Iconos Icomoon
+│   ├── icon/                          # Directorio para almacenar iconos adicionales
+│   ├── img/                           # Imágenes utilizadas en la aplicación
+│   └── js/                            # Archivos JavaScript del lado del cliente
+├── routes/                        # Definición de rutas de la aplicación
+│   ├── dron.js                        # Rutas específicas para la gestión de drones
+│   └── users.js                       # Rutas específicas para la gestión de usuarios
+├── services/                      # Servicios que proporcionan lógica de negocio reutilizable
+│   ├── datasource.js                  # Fuente de datos principal para la aplicación
+│   ├── fileUpload.js                  # Servicio para manejar la carga de archivos
+│   ├── userDatasource.js              # Fuente de datos específica para usuarios
+│   └── userFileUpload.js              # Servicio para manejar la carga de archivos de usuarios
+├── views/                         # Vistas de la aplicación (plantillas EJS)
+│   ├── partials/                      # Fragmentos de vistas reutilizables
+│   │   ├── footer.ejs                     # Pie de página común para las vistas
+│   │   ├── head.ejs                       # Cabezal HTML común para las vistas
+│   │   ├── header.ejs                     # Encabezado común para las vistas
+│   │   └── script.ejs                     # Scripts JavaScript comunes para las vistas
+│   ├── products/                      # Vistas relacionadas con productos
+│   │   ├── agregarProducto.ejs            # Formulario para agregar un nuevo producto
+│   │   ├── carrito-compra.ejs             # Vista del carrito de compras
+│   │   ├── detalle-producto.ejs           # Detalle de un producto específico
+│   │   ├── editarProducto.ejs             # Formulario para editar un producto existente
+│   │   └── productos.ejs                  # Vista general de productos
+│   ├── users/                         # Vistas relacionadas con usuarios
+│   │   ├── login.ejs                      # Formulario de inicio de sesión
+│   │   ├── perfil.ejs                     # Vista del perfil del usuario
+│   │   └── registro.ejs                   # Formulario de registro de usuario
+│   ├── index.ejs                      # Página de inicio de la aplicación
+│   └── not-found.ejs                  # Página de error 404 para rutas no encontradas
+├── .gitignore                     # Archivo para ignorar archivos y directorios en Git
+├── app.js                         # Archivo principal de configuración y ejecución del servidor
+├── package-lock.json              # Archivo de dependencias específico de versiones
+├── package.json                   # Información del proyecto y dependencias necesarias
+└── README.md                      # Documentación principal del proyecto
+
 ```
