@@ -42,28 +42,27 @@ const usersController = {
 
   login: async (req, res) => {
     try {
-       const { email, password } = req.body;
-       const users = await userDatasource.load(); // Cambiado a userDatasource.load()
-       const user = users.find(u => u.email === email);
-      
-       if (user && bcrypt.compareSync(password, user.password)) {
-          req.session.user = user;
-        
-         // imput check valor
-          
-          if (req.body['remember']==='on') {
-            console.log('entre');
-            res.cookie('userEmail', email, { maxAge: 1000 * 60 * 60 * 24 * 30 });
-          }
-          return res.redirect('/users/perfil');
-       }
- 
-       res.redirect('/login');
+      const { email, password } = req.body;
+      const users = await userDatasource.load();
+      const user = users.find(u => u.email === email);
+
+      if (user && bcrypt.compareSync(password, user.password)) {
+        req.session.user = user;
+
+        // Manejar la opción de recordar cuenta
+        if (req.body.remember) {
+          res.cookie('userEmail', email, { maxAge: 1000 * 60 * 60 * 24 * 30 }); // Cookie válida por 30 días
+        }
+
+        return res.redirect('/users/perfil');
+      }
+
+      res.redirect('/login');
     } catch (error) {
-       console.error('Error en el login:', error);
-       res.status(500).send('Error interno del servidor');
+      console.error('Error en el login:', error);
+      res.status(500).send('Error interno del servidor');
     }
- },
+  },
 
   logout: (req, res) => {
     req.session.destroy();

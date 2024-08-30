@@ -6,5 +6,13 @@
     "email": "david@gmail.com",
     "password": "$2a$10$dBP63PPhnWd091Xd2RKWserFcedFz0YPmKp7WALjh1G4cxxu4wFq.",
     "profileImage": "default.png"
+  },
+  {
+    "id": "71c807cd-0d57-4810-aa14-ebec4b1ff419",
+    "nombres": "david",
+    "apellidos": "garcia",
+    "email": "davidleo@gmail.com",
+    "password": "$2a$10$h.m1IX6jM4BQVWp7v4F78.jRSw5xvuxzDrVqcyWbATIB.BAKrft/W",
+    "profileImage": "user-eeab2bee550821e3.png"
   }
 ]

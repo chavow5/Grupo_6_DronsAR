@@ -5,6 +5,7 @@ const app = express();
 const methodOverride = require("method-override");
 const session = require('express-session');
 const cookies = require('cookie-parser');
+const userDatasource = require('./services/userDatasource');
 
 
 
@@ -21,6 +22,22 @@ app.use(session({
     saveUninitialized: false
   }));
   app.use(cookies());
+
+  // Middleware para autenticar automáticamente si la cookie userEmail existe
+app.use(async (req, res, next) => {
+    if (!req.session.user && req.cookies.userEmail) {
+        try {
+            const users = await userDatasource.load();
+            const user = users.find(u => u.email === req.cookies.userEmail);
+            if (user) {
+                req.session.user = user; // Loguear automáticamente
+            }
+        } catch (error) {
+            console.error('Error al cargar los usuarios:', error);
+        }
+    }
+    next();
+});
 
 
 // Definir la ubicación de los archivos estáticos
