@@ -1,0 +1,25 @@
+git add .
+
+git commit -m "Rearmando estructura del proyecto"
+
+git pull origin main
+
+//hacer la primera vez para sincronizar proyecto (iniciar la sesion)
+git config --global user.name ""
+git config --global user.email ""
+
+//hacer la primera vez para sincronizar proyecto
+git remote add origin https://github.com/David-G93/mercadoLiebre.git
+
+//verificar si estamos sincronizados
+git remote -v
+
+
+git commit -m "subiendo proyecto mercadoLiebre"
+
+//subir solo las modificaciones que se hicieron
+git commit -am "otraformadesubircommit"
+
+git push origin main
+
+git push -u origin main
