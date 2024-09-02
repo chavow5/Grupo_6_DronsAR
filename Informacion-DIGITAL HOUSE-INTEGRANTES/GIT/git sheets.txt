@@ -2,6 +2,8 @@ git add .
 
 git commit -m "Rearmando estructura del proyecto"
 
+git push
+
 git pull origin main
 
 //hacer la primera vez para sincronizar proyecto (iniciar la sesion)
