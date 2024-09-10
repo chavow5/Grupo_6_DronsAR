@@ -1,6 +1,6 @@
 # Grupo N°6 DronsAR
 
-Bienvenido al repositorio del proyecto integrador del curso Full-Stack de Digital House 2024. Desarrollo de todas las fases de un e-commerce. Acceso al sitio web funcional en fases beta: https://grupo-6-dronsar.onrender.com/
+Bienvenido al repositorio del proyecto integrador del curso Full-Stack de Digital House 2024. Desarrollo de todas las fases de un e-commerce. Acceso al sitio web funcional en fase beta: https://grupo-6-dronsar.onrender.com/
 
 ## 📋 Tabla de Contenidos
 
@@ -17,7 +17,7 @@ Bienvenido al repositorio del proyecto integrador del curso Full-Stack de Digita
 - [Sprint 5](https://github.com/chavow5/Grupo_6_DronsAR/blob/fabrixh-sprint4/retro5.md)🆕🔥
 
 
-## 👨‍👨‍👦‍👦 Integrantes (link de integrantes en [integrantes.md](https://github.com/chavow5/Grupo_6_DronsAR/blob/main/Informacion-DIGITAL%20HOUSE-INTEGRANTES/Integrantes.md))
+## [👨‍👨‍👦‍👦Integrantes](https://github.com/chavow5/Grupo_6_DronsAR/blob/main/Informacion-DIGITAL%20HOUSE-INTEGRANTES/Integrantes.md)
 
 
 ## 📅 Gestión del Proyecto en Trello
