@@ -10,7 +10,7 @@ body {
 /* Estilos para el header y el menú */
 header {
   z-index: 999;
-  background: linear-gradient(to right, #9acfe4, #bccbdf);
+  background: linear-gradient(to right, #9acfe4, #ced8e5);
   backdrop-filter: blur(10px);
   color: #000;
 }
