@@ -639,9 +639,7 @@ header .navbar-nav li a:hover {
 
   /*Comienzo footer*/
 
-  /*-------------------------------------
-    News-letter
---------------------------------------*/
+  /*---------------------------------- News-letter--------------------------------------*/
 .custom-container {
   padding-left: 25px;
   padding-right: 25px;
@@ -722,7 +720,7 @@ header .navbar-nav li a:hover {
    Footer
 --------------------------------------*/
 .footer {
-    background: #f8f9fd;
+    background: #222934 ;
     display: flex;
     align-items: center;
     height: 154px;
