@@ -1,0 +1,47 @@
+Grupo_6_DronsAR
+├── .gitignore
+├── app.js
+├── controllers
+│   ├── dron.js
+│   └── usersController.js
+├── middleware
+│   └── authMiddleware.js
+├── models
+│   ├── drones.json
+│   └── users.json
+├── package-lock.json
+├── package.json
+├── public
+│   ├── css
+│   ├── fonts
+│   ├── icon
+│   ├── img
+│   │   └── users
+│   │   └── productsimg
+│   └── js
+├── routes
+│   ├── dron.js
+│   └── users.js
+├── services
+│   ├── datasource.js
+│   ├── fileUpload.js
+│   ├── userDatasource.js
+│   └── userFileUpload.js
+└── views
+    ├── index.ejs
+    ├── not-found.ejs
+    ├── partials
+    │   ├── footer.ejs
+    │   ├── head.ejs
+    │   ├── header.ejs
+    │   └── script.ejs
+    ├── products
+    │   ├── agregarProducto.ejs
+    │   ├── carrito-compra.ejs
+    │   ├── detalle-producto.ejs
+    │   ├── editarProducto.ejs
+    │   └── productos.ejs
+    └── users
+        ├── login.ejs
+        ├── perfil.ejs
+        └── registro.ejs
