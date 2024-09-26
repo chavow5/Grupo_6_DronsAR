@@ -1,24 +1,36 @@
 Grupo_6_DronsAR
 ├── .gitignore
+├── .sequelizerc
 ├── app.js
 ├── controllers
 │   ├── dron.js
 │   └── usersController.js
+├── database
+│   ├── config
+│   │   └── config.json
+│   ├── migrations
+│   ├── models
+│   │   └── index.js
+│   └── seeders
+├── diagrama.txt
 ├── middleware
 │   └── authMiddleware.js
 ├── models
 │   ├── drones.json
+│   ├── index.js
 │   └── users.json
 ├── package-lock.json
 ├── package.json
 ├── public
 │   ├── css
 │   ├── fonts
-│   ├── icon
 │   ├── img
+│   │   ├── productsImg
+│   │   ├── tarjetas.png
 │   │   └── users
-│   │   └── productsimg
 │   └── js
+├── README copy.md
+├── README.md
 ├── routes
 │   ├── dron.js
 │   └── users.js
