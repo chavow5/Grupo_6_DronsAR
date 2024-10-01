@@ -13,7 +13,7 @@ if (config.use_env_variable) {
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, {
     host: config.host,
-    dialect: config.dialect // Asegúrate de que aquí se esté utilizando el dialecto
+    dialect: config.dialect 
   });
 }
 

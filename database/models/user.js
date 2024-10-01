@@ -27,19 +27,19 @@ module.exports = (sequelize, DataTypes) => {
     profileImage: {
       type: DataTypes.STRING,
       defaultValue: 'default.png',
-      field: 'profileImage' // Mapeo a la columna 'profileImage' en la base de datos
+      field: 'profileImage' 
     },
     createdAt: {
       type: DataTypes.DATE,
-      field: 'createdAt', // Mapeo a la columna 'createdAt' en la base de datos
+      field: 'createdAt', 
     },
     updatedAt: {
       type: DataTypes.DATE,
-      field: 'updatedAt', // Mapeo a la columna 'updatedAt' en la base de datos
+      field: 'updatedAt',
     },
   }, {
-    tableName: 'users', // Asegúrate de que el nombre de la tabla sea correcto
-    underscored: false, // No usar underscored ya que estás usando camelCase
+    tableName: 'users', 
+    underscored: false, 
   });
   return User;
 };

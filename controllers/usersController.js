@@ -1,7 +1,7 @@
 'use strict';
 
-const db = require('../database/models'); // Asegúrate de que la ruta sea correcta
-const User = db.User; // Accede al modelo User
+const db = require('../database/models'); 
+const User = db.User;
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 
@@ -23,9 +23,9 @@ const usersController = {
         apellidos,
         email,
         password: hashedPassword,
-        profileImage: req.file ? req.file.filename : 'default.png' // Asegúrate de que esto coincida
+        profileImage: req.file ? req.file.filename : 'default.png' 
       });
-      res.redirect('/users/perfil'); // Cambiar la redirección aquí si es necesario
+      res.redirect('/users/perfil'); 
     } catch (error) {
       console.error('Error al registrar el usuario:', error);
       res.status(500).send('Error interno del servidor');
@@ -48,6 +48,8 @@ const usersController = {
       if (!isPasswordValid) {
         return res.status(400).send('El email o la contraseña son incorrectos.');
       }
+
+      
   
       // Guardar información del usuario en la sesión
       req.session.user = {
