@@ -1,73 +1,81 @@
+'use strict';
+
+const db = require('../database/models'); // Asegúrate de que la ruta sea correcta
+const User = db.User; // Accede al modelo User
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
-const userDatasource = require('../services/userDatasource');
-const userFileUpload = require('../services/userFileUpload');
-const { log } = require('console');
 
 const usersController = {
   register: async (req, res) => {
     try {
       const { nombres, apellidos, email, password } = req.body;
-
       if (!password) {
         throw new Error('La contraseña es requerida');
       }
-
-      const users = await userDatasource.load();
-
-       // Verificar si el email ya está en uso
-       const emailExists = users.some(user => user.email === email);
-       if (emailExists) {
-         return res.status(400).send('El email ya está registrado');
-       }
-
+      const emailExists = await User.findOne({ where: { email } });
+      if (emailExists) {
+        return res.status(400).send('El email ya está registrado');
+      }
       const hashedPassword = bcrypt.hashSync(password, 10);
-      const newUser = {
-        id: crypto.randomUUID(), // Generar un ID único con crypto
+      const newUser = await User.create({
+        id: crypto.randomUUID(),
         nombres,
         apellidos,
         email,
         password: hashedPassword,
-        profileImage: req.file ? req.file.filename : 'default.png'
-      };
-
-      users.push(newUser);
-      await userDatasource.save(users);
-      res.redirect('/login');
+        profileImage: req.file ? req.file.filename : 'default.png' // Asegúrate de que esto coincida
+      });
+      res.redirect('/users/perfil'); // Cambiar la redirección aquí si es necesario
     } catch (error) {
       console.error('Error al registrar el usuario:', error);
       res.status(500).send('Error interno del servidor');
     }
   },
-
   login: async (req, res) => {
     try {
       const { email, password } = req.body;
-      const users = await userDatasource.load();
-      const user = users.find(u => u.email === email);
-
-      if (user && bcrypt.compareSync(password, user.password)) {
-        req.session.user = user;
-
-        // Manejar la opción de recordar cuenta
-        if (req.body.remember) {
-          res.cookie('userEmail', email, { maxAge: 1000 * 60 * 60 * 24 * 30 }); // Cookie válida por 30 días
-        }
-
-        return res.redirect('/users/perfil');
+  
+      // Buscar el usuario por el email
+      const user = await User.findOne({ where: { email } });
+  
+      // Verificar si el usuario existe
+      if (!user) {
+        return res.status(400).send('El email o la contraseña son incorrectos.');
       }
-
-      res.redirect('/login');
+  
+      // Comparar la contraseña proporcionada con la almacenada
+      const isPasswordValid = bcrypt.compareSync(password, user.password);
+      if (!isPasswordValid) {
+        return res.status(400).send('El email o la contraseña son incorrectos.');
+      }
+  
+      // Guardar información del usuario en la sesión
+      req.session.user = {
+        id: user.id,
+        nombres: user.nombres,
+        apellidos: user.apellidos,
+        email: user.email,
+        profileImage: user.profileImage,
+      };
+  
+      // Redirigir a la página de perfil o a donde desees
+      res.redirect('/users/perfil');
     } catch (error) {
-      console.error('Error en el login:', error);
+      console.error('Error al iniciar sesión:', error);
       res.status(500).send('Error interno del servidor');
     }
   },
-
   logout: (req, res) => {
-    req.session.destroy();
-    res.clearCookie('userEmail');
-    res.redirect('/');
+    // Destruir la sesión del usuario
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('Error al cerrar sesión:', err);
+        return res.status(500).send('Error interno del servidor');
+      }
+  
+      // Redirigir a la página de inicio o a donde desees
+      res.redirect('/login');
+    });
   }
 };
 

@@ -11,6 +11,7 @@ Grupo_6_DronsAR
 │   ├── migrations
 │   ├── models
 │   │   └── index.js
+│   │   └── user.js
 │   └── seeders
 ├── diagrama.txt
 ├── middleware
