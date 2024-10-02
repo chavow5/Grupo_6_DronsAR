@@ -14,8 +14,8 @@ Bienvenido al repositorio del proyecto integrador del curso Full-Stack de Digita
 - [Retrospectiva & Sprint 2 ](https://github.com/chavow5/Grupo_6_DronsAR/blob/main/Retro.md)
 - [Sprint 3 ](https://github.com/chavow5/Grupo_6_DronsAR/blob/main/retro3.md)
 - [Sprint 4](https://github.com/chavow5/Grupo_6_DronsAR/blob/fabrixh-sprint4/retro4.md) 
-- [Sprint 5](https://github.com/chavow5/Grupo_6_DronsAR/blob/fabrixh-sprint4/retro5.md)🆕🔥
-
+- [Sprint 5](https://github.com/chavow5/Grupo_6_DronsAR/blob/fabrixh-sprint4/retro5.md)
+- [Sprint 6](https://github.com/chavow5/Grupo_6_DronsAR/blob/fabrixh-sprint4/retro5.md)🆕🔥
 
 ## [👨‍👨‍👦‍👦Integrantes](https://github.com/chavow5/Grupo_6_DronsAR/blob/main/Informacion-DIGITAL%20HOUSE-INTEGRANTES/Integrantes.md)
 
