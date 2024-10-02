@@ -1,158 +1,155 @@
-const crypto = require("crypto");
-const fs = require('fs');
-const path = require('path');
-const datasourcePath = path.join(__dirname, '../models/drones.json');
-const dataSource = require("../services/datasource.js");
-const fileUpload = require("../services/fileUpload.js");
+'use strict';
 
-// Leer el archivo JSON
-const leerDatos = () => {
-  return JSON.parse(fs.readFileSync(datasourcePath, 'utf8'));
-};
-
-// Escribir en el archivo JSON
-const escribirDatos = (datos) => {
-  fs.writeFileSync(datasourcePath, JSON.stringify(datos, null, 2), 'utf8');
-};
+const db = require('../database/models');
+const Product = db.Product;
+const crypto = require('crypto');
 
 const dronController = {
-  drones: null,
-
-  async getProductos(req, res) {
-    this.drones = await dataSource.load();
-    res.render("products/productos", { drones: this.drones });
-  },
-
-  async getProductoById(req, res) {
-    this.drones = await dataSource.load();
-    const { id } = req.params;
-    const dron = this.drones.find((dron) => dron.id === id);
-    if (dron) {
-      res.render("products/detalle-producto", { dron });
-    } else {
-      res.status(404).send("Producto no encontrado");
-    }
-  },
-
-  async getEditForm(req, res) {
-    this.drones = await dataSource.load();
-    const { id } = req.params;
-    const dron = this.drones.find((dron) => dron.id === id);
-    if (dron) {
-      res.render("products/editarProducto", { dron });
-    } else {
-      res.status(404).send("Producto no encontrado");
-    }
-  },
-
-  getAddForm(req, res) {
-    res.render("products/agregarProducto");
-  },
-
-  async createOne(req, res) {
+  // Método para mostrar todos los productos
+  getProductos: async (req, res) => {
     try {
-      // Manejo de archivo
-      const imageFilePath = req.file && req.file.filename
-        ? `/img/productsImg/${req.file.filename}`
-        : "/img/productsImg/default.png";
+      const drones = await Product.findAll(); // Obtiene todos los productos
+      console.log(drones.map(d => d.precio)); // Esto imprimirá los precios de todos los drones
+      res.render('products/productos', { drones }); // Renderiza la vista con los productos
+    } catch (error) {
+      console.error('Error al obtener productos:', error);
+      res.status(500).send('Error interno del servidor');
+    }
+  },
 
-      // Crear nuevo dron
-      const { nombre, marca, modelo, descripcion, categoria, precio, peso, duracionBateria, camara, tipoSensores, altura, velocidad, descuento } = req.body;
-      const nuevoDron = {
+  // Método para mostrar el formulario de agregar producto
+  getAddForm: (req, res) => {
+    res.render('products/agregarProducto'); // Renderiza el formulario para agregar un producto
+  },
+
+  // Método para agregar un producto
+  create: async (req, res) => {
+    try {
+      const { nombre, marca, modelo, descripcion, categoria, precio, peso, duracionBateria, camara, tipoSensores, altura, velocidad, descuento, image } = req.body;
+
+      // Validaciones simples (se puede mejorar con más validaciones)
+      if (!nombre || !marca || !precio) {
+        throw new Error('Los campos nombre, marca y precio son obligatorios');
+      }
+
+      // Crear el nuevo producto
+      const newProduct = await Product.create({
         id: crypto.randomUUID(),
         nombre,
         marca,
         modelo,
         descripcion,
         categoria,
-        precio: parseFloat(precio),
+        precio,
         peso,
         duracionBateria,
         camara,
         tipoSensores,
         altura,
         velocidad,
-        descuento: parseFloat(descuento),
-        image: imageFilePath
-      };
-
-      // Cargar drones, agregar nuevo y guardar
-      this.drones = await dataSource.load();
-      this.drones.push(nuevoDron);
-      await dataSource.save(this.drones);
-
-      res.redirect("/productos");
-    } catch (error) {
-      console.error(error);
-      res.status(500).send("Error al agregar el producto");
-    }
-  },
-
-  async updateOne(req, res) {
-    try {
-      console.log("Update request received");
-      fileUpload.single("image")(req, res, async (err) => {
-        if (err) {
-          console.error("File upload error:", err);
-          return res.status(500).send("Error al cargar el archivo");
-        }
-        console.log("File uploaded successfully");
-  
-        const { id } = req.params;
-        const { nombre, marca, modelo, descripcion, categoria, precio, peso, duracionBateria, camara, tipoSensores, altura, velocidad, descuento } = req.body;
-        let imageFilePath = req.file ? `/img/productsImg/${req.file.filename}` : req.body.currentImage || "/img/productsImg/default.png";
-  
-        this.drones = await dataSource.load();
-        const updatedDrones = this.drones.map((dron) =>
-          dron.id === id
-            ? {
-                id,
-                nombre,
-                marca,
-                modelo,
-                descripcion,
-                categoria,
-                precio: parseFloat(precio),
-                peso,
-                duracionBateria,
-                camara,
-                tipoSensores,
-                altura,
-                velocidad,
-                descuento: parseFloat(descuento),
-                image: imageFilePath
-              }
-            : dron
-        );
-  
-        await dataSource.save(updatedDrones);
-        res.redirect(`/productos/${id}`);
+        descuento,
+        image: req.file ? req.file.filename : 'default.png' // Si no se sube imagen, usar default
       });
+
+      // Redirigir a la lista de productos
+      res.redirect('/productos');
     } catch (error) {
-      console.error("Update error:", error);
-      res.status(500).send("Error al actualizar el producto");
+      console.error('Error al crear el producto:', error);
+      res.status(500).send('Error interno del servidor');
     }
   },
 
-  async eliminarProducto(req, res) {
+  // Método para mostrar el detalle de un producto
+  getProductoById: async (req, res) => {
     try {
-      const { id } = req.params;
-      this.drones = await dataSource.load();
-      const dron = this.drones.find((dron) => dron.id === id);
-  
-      if (dron) {
-        const filteredDrones = this.drones.filter((dron) => dron.id !== id);
-        await dataSource.save(filteredDrones);
-        if (dron.image && dron.image !== '/img/productsImg/default.png') {
-          fs.unlinkSync(path.join(__dirname, '../public', dron.image));
-        }
-        res.redirect("/productos");
-      } else {
-        res.status(404).send("Producto no encontrado");
+      const productId = req.params.id;
+      const product = await Product.findByPk(productId);
+      
+      if (!product) {
+        return res.status(404).send('Producto no encontrado');
       }
+
+      res.render('products/detalle-producto', { product });
     } catch (error) {
-      console.error(error);
-      res.status(500).send("Error al eliminar el producto");
+      console.error('Error al obtener el detalle del producto:', error);
+      res.status(500).send('Error interno del servidor');
+    }
+  },
+
+  // Método para mostrar el formulario de edición
+  getEditForm: async (req, res) => {
+    try {
+      const productId = req.params.id;
+      const product = await Product.findByPk(productId);
+
+      if (!product) {
+        return res.status(404).send('Producto no encontrado');
+      }
+
+      res.render('products/editarProducto', { product }); // Renderiza el formulario de edición
+    } catch (error) {
+      console.error('Error al obtener el producto para editar:', error);
+      res.status(500).send('Error interno del servidor');
+    }
+  },
+
+  // Método para actualizar un producto
+  updateOne: async (req, res) => {
+    try {
+      const productId = req.params.id;
+      const { nombre, marca, modelo, descripcion, categoria, precio, peso, duracionBateria, camara, tipoSensores, altura, velocidad, descuento } = req.body;
+
+      // Validaciones simples
+      if (!nombre || !marca || !precio) {
+        throw new Error('Los campos nombre, marca y precio son obligatorios');
+      }
+
+      const product = await Product.findByPk(productId);
+      if (!product) {
+        return res.status(404).send('Producto no encontrado');
+      }
+
+      // Actualizar el producto
+      await Product.update({
+        nombre,
+        marca,
+        modelo,
+        descripcion,
+        categoria,
+        precio,
+        peso,
+        duracionBateria,
+        camara,
+        tipoSensores,
+        altura,
+        velocidad,
+        descuento,
+        image: req.file ? req.file.filename : product.image // Si se sube una nueva imagen, usarla, si no, mantener la anterior
+      }, { where: { id: productId } });
+
+      res.redirect(`/products/${productId}`); // Redirigir a los detalles del producto actualizado
+    } catch (error) {
+      console.error('Error al actualizar el producto:', error);
+      res.status(500).send('Error interno del servidor');
+    }
+  },
+
+  // Método para eliminar un producto
+  delete: async (req, res) => {
+    try {
+      const productId = req.params.id;
+
+      const product = await Product.findByPk(productId);
+      if (!product) {
+        return res.status(404).send('Producto no encontrado');
+      }
+
+      await Product.destroy({ where: { id: productId } });
+
+      res.redirect('/productos');
+    } catch (error) {
+      console.error('Error al eliminar el producto:', error);
+      res.status(500).send('Error interno del servidor');
     }
   }
 };

@@ -2,7 +2,7 @@ const fs = require("node:fs/promises");
 const path = require("node:path");
 
 const datasource = {
-  filePath: path.resolve(__dirname, "../models/drones.json"),
+  filePath: path.resolve(__dirname, "../database/models/products.js"),
 
   async load() {
     const jsonDrones = await fs.readFile(this.filePath, "utf-8");

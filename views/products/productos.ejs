@@ -36,12 +36,13 @@
                                     <div class="d-flex">
                                         <div class="pricing">
                                             <p class="price">
-                                                <% if (dron.descuento > 0) { %>
-                                                    <span class="mr-2 price-dc">$<%= dron.precio.toFixed(2) %></span>
-                                                    <span class="price-sale">$<%= (dron.precio - (dron.precio * dron.descuento / 100)).toFixed(2) %></span>
+                                                <% if (dron.descuento > 0 && !isNaN(dron.descuento)) { %>
+                                                    <span class="mr-2 price-dc">$<%= Number(dron.precio).toFixed(2) %></span>
+                                                    <span class="price-sale">$<%= (Number(dron.precio) - (Number(dron.precio) * (Number(dron.descuento) / 100))).toFixed(2) %></span>
                                                 <% } else { %>
-                                                    <span class="price-sale">$<%= dron.precio.toFixed(2) %></span>
+                                                    <span class="price-sale">$<%= Number(dron.precio).toFixed(2) %></span>
                                                 <% } %>
+                                                
                                             </p>
                                         </div>
                                         <div class="rating">
