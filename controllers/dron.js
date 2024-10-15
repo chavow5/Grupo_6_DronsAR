@@ -60,21 +60,23 @@ const dronController = {
   },
 
   // Método para mostrar el detalle de un producto
-  getProductoById: async (req, res) => {
-    try {
-      const productId = req.params.id;
-      const product = await Product.findByPk(productId);
-      
-      if (!product) {
-        return res.status(404).send('Producto no encontrado');
-      }
-
-      res.render('products/detalle-producto', { product });
-    } catch (error) {
-      console.error('Error al obtener el detalle del producto:', error);
-      res.status(500).send('Error interno del servidor');
+  // Método para mostrar el detalle de un producto
+getProductoById: async (req, res) => {
+  try {
+    const productId = req.params.id; // Obtenemos el id del producto desde los parámetros
+    const product = await Product.findByPk(productId); // Buscamos el producto en la base de datos
+    
+    if (!product) {
+      return res.status(404).send('Producto no encontrado'); // Si no se encuentra, devolvemos un error
     }
-  },
+    res.render('products/detalle-producto', { dron: product });
+
+  } catch (error) {
+    console.error('Error al obtener el detalle del producto:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+},
+
 
   // Método para mostrar el formulario de edición
   getEditForm: async (req, res) => {
@@ -85,8 +87,8 @@ const dronController = {
       if (!product) {
         return res.status(404).send('Producto no encontrado');
       }
-
-      res.render('products/editarProducto', { product }); // Renderiza el formulario de edición
+      
+      res.render('products/editarProducto', { dron: product });
     } catch (error) {
       console.error('Error al obtener el producto para editar:', error);
       res.status(500).send('Error interno del servidor');
@@ -96,43 +98,44 @@ const dronController = {
   // Método para actualizar un producto
   updateOne: async (req, res) => {
     try {
-      const productId = req.params.id;
-      const { nombre, marca, modelo, descripcion, categoria, precio, peso, duracionBateria, camara, tipoSensores, altura, velocidad, descuento } = req.body;
+        const productId = req.params.id;
+        const { nombre, marca, modelo, descripcion, categoria, precio, peso, duracionBateria, camara, tipoSensores, altura, velocidad, descuento } = req.body;
 
-      // Validaciones simples
-      if (!nombre || !marca || !precio) {
-        throw new Error('Los campos nombre, marca y precio son obligatorios');
-      }
+        // Validaciones simples
+        if (!nombre || !marca || !precio) {
+            throw new Error('Los campos nombre, marca y precio son obligatorios');
+        }
 
-      const product = await Product.findByPk(productId);
-      if (!product) {
-        return res.status(404).send('Producto no encontrado');
-      }
+        const product = await Product.findByPk(productId);
+        if (!product) {
+            return res.status(404).send('Producto no encontrado');
+        }
 
-      // Actualizar el producto
-      await Product.update({
-        nombre,
-        marca,
-        modelo,
-        descripcion,
-        categoria,
-        precio,
-        peso,
-        duracionBateria,
-        camara,
-        tipoSensores,
-        altura,
-        velocidad,
-        descuento,
-        image: req.file ? req.file.filename : product.image // Si se sube una nueva imagen, usarla, si no, mantener la anterior
-      }, { where: { id: productId } });
+        // Actualizar el producto
+        await Product.update({
+            nombre,
+            marca,
+            modelo,
+            descripcion,
+            categoria,
+            precio,
+            peso,
+            duracionBateria,
+            camara,
+            tipoSensores,
+            altura,
+            velocidad,
+            descuento,
+            image: req.file ? req.file.filename : product.image // Mantener la imagen anterior si no se sube nueva
+        }, { where: { id: productId } });
 
-      res.redirect(`/products/${productId}`); // Redirigir a los detalles del producto actualizado
+        res.redirect(`/productos/${productId}`); // Redirigir a los detalles del producto actualizado
     } catch (error) {
-      console.error('Error al actualizar el producto:', error);
-      res.status(500).send('Error interno del servidor');
+        console.error('Error al actualizar el producto:', error);
+        res.status(500).send('Error interno del servidor');
     }
-  },
+},
+
 
   // Método para eliminar un producto
   delete: async (req, res) => {

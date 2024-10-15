@@ -8,8 +8,10 @@ router.get('/', dronController.getProductos); // Mostrar todos los productos
 router.get('/add', dronController.getAddForm); // Mostrar formulario para agregar producto
 router.post('/agregar', fileUpload.single('image'), dronController.create); // Cambiar de createOne a create
 router.get('/:id', dronController.getProductoById); // Mostrar detalles de un producto
+
 router.get('/editar/:id', dronController.getEditForm); // Mostrar formulario de edición
-router.put('/editar/:id', dronController.updateOne.bind(dronController));
+router.put('/editar/:id', fileUpload.single('image'), dronController.updateOne);
+
 router.post('/delete/:id', dronController.delete); // Cambiar de eliminarProducto a delete
 
 module.exports = router;

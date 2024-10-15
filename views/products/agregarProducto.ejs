@@ -74,6 +74,35 @@
 
     <%- include('../partials/footer'); %>
 
-   
+    <script>
+        function validateForm() {
+            const nombre = document.getElementById('nombre').value;
+            const marca = document.getElementById('marca').value;
+            const modelo = document.getElementById('modelo').value;
+            const descripcion = document.getElementById('descripcion').value;
+            const precio = document.getElementById('precio').value;
+            const peso = document.getElementById('peso').value;
+            const duracionBateria = document.getElementById('duracionBateria').value;
+            const camara = document.getElementById('camara').value;
+            const tipoSensores = document.getElementById('tipoSensores').value;
+            const altura = document.getElementById('altura').value;
+            const velocidad = document.getElementById('velocidad').value;
+
+            // Verificación de campos vacíos
+            if (!nombre || !marca || !modelo || !descripcion || !precio || !peso || !duracionBateria || !camara || !tipoSensores || !altura || !velocidad) {
+                alert("Todos los campos son obligatorios.");
+                return false;
+            }
+
+            // Validación de precios y descuentos
+            if (parseFloat(precio) < 0) {
+                alert("El precio no puede ser negativo.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+
 </body>
 </html>
