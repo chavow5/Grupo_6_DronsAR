@@ -68,6 +68,10 @@ app.get('/', (req, res) => {
 app.get('/about', (req, res) => {
     res.render('about');
 });
+// Ruta página de contact
+app.get('/contact', (req, res) => {
+    res.render('contact');
+});
 
 // Ruta página de login
 app.get('/login', (req, res) => {
