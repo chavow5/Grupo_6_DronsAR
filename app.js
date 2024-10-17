@@ -64,6 +64,11 @@ app.get('/users/perfil', authMiddleware.auth, (req, res) => {
 app.get('/', (req, res) => {
     res.render('index');
 });
+// Ruta página de about
+app.get('/about', (req, res) => {
+    res.render('about');
+});
+
 // Ruta página de login
 app.get('/login', (req, res) => {
     res.render('users/login');
