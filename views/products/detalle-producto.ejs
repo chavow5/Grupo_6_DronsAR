@@ -408,41 +408,6 @@
       <%- include('../partials/footer'); %>
         <%- include('../partials/script'); %>
 
-          <script>
-            (function () {
-              window.inputNumber = function (el) {
-                var min = el.attr('min') || false;
-                var max = el.attr('max') || false;
-
-                // Asignar eventos a los botones de incremento y decremento
-                el.each(function () {
-                  var input = $(this);
-                  var dec = input.prev('.inumber-decrement');
-                  var inc = input.next('.number-increment');
-
-                  dec.on('click', function () {
-                    var value = parseInt(input.val());
-                    value--;
-                    if (!min || value >= min) {
-                      input.val(value);
-                    }
-                  });
-
-                  inc.on('click', function () {
-                    var value = parseInt(input.val());
-                    value++;
-                    if (!max || value <= max) {
-                      input.val(value);
-                    }
-                  });
-                });
-              }
-            })();
-
-            // Inicializar la función
-            inputNumber($('.input-number'));
-          </script>
-
           <!--script para botones de descripcion y especificaciones-->
           <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
           <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
