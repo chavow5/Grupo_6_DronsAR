@@ -1,86 +1,78 @@
 <%- include('partials/head') %>
 <style>
-    h2{
-        color:black;
-    }
-    p,.lead{
-        color: white !important;
-    }
+    .text-justify {
+    text-align: justify;
+}
 
+.bg-custom {
+    background-color: #B1CCE0;
+}
 </style>
 <body>
     <%- include('partials/header') %>
-    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://scontent.firj1-1.fna.fbcdn.net/v/t39.30808-6/441533555_10230478045470249_6413189675927657978_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeHauOph2dW2_mO4YwaeBbEU-kL3E3V_qKv6QvcTdX-oqwp0GVpUEpJNc9QdXeiA49qOuztU-VymDpuNxMbaESF9&_nc_ohc=BRx7hx7-NMcQ7kNvgE6H_xr&_nc_zt=23&_nc_ht=scontent.firj1-1.fna&_nc_gid=AXt3DwsGNEQdbvD_szwZ8wY&oh=00_AYBz_zA0B55bz4o0S0xqW1y8S7tJ5d_v-ESQ_9cPsRY98Q&oe=67209F36'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; opacity: 0.7; z-index: -2;"></div>
-    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.2); z-index: -1;"></div>
-    <br>
-    <br>
-    <br>
-
-    <div class="container-fluid mt-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
-                <h1 class="display-4">Contacto</h1>
-                <p class="lead">¡Estamos aquí para ayudarte! Completa el formulario a continuación y nos pondremos en contacto contigo lo antes posible.</p>
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-secondary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center bg-custom" style="min-height: 300px;">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Contáctenos</h1>
+            <div class="d-inline-flex">
+                <p class="m-0"><a href="">Home</a></p>
+                <p class="m-0 px-2">-</p>
+                <p class="m-0">Contact</p>
             </div>
-        </div>
-
-        <div class="row justify-content-center mt-4">
-            <div class="col-md-8 col-lg-6">
-                <form action="/enviar-contacto" method="POST" class="p-4 shadow-sm rounded bg-light">
-                    <div class="form-group mb-3">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Tu nombre completo" required>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="tuemail@ejemplo.com" required>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="telefono">Teléfono (opcional)</label>
-                        <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="+54 3804 123456">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="asunto">Asunto</label>
-                        <input type="text" class="form-control" id="asunto" name="asunto" placeholder="Motivo de contacto" required>
-                    </div>
-                    <div class="form-group mb-4">
-                        <label for="mensaje">Mensaje</label>
-                        <textarea class="form-control" id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu mensaje..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Enviar</button>
-                </form>
-            </div>
-        </div>
-
-        <hr class="my-5">
-
-        <div class="row text-center mb-5">
-            <div class="col-md-4">
-                <h2>Información de Contacto</h2>
-                <p><strong>Dirección:</strong> Av. San Nicolas de Bari 500, La Rioja</p>
-                <p><strong>Teléfono:</strong> (3804) 456-7890</p>
-                <p><strong>Email:</strong> contacto@dronsar.com</p>
-            </div>
-            <div class="col-md-4">
-                <h2>Nuestras Redes Sociales</h2>
-                <p>
-                    <a href="#" target="_blank" class="btn btn-outline-primary btn-sm me-2">Facebook</a>
-                    <a href="#" target="_blank" class="btn btn-outline-danger btn-sm">Instagram</a>
-                </p>
-            </div>
-            <div class="col-md-4">
-                <h2>Horarios de Atención</h2>
-                <p>Lunes a Viernes: 9:00 AM - 6:00 PM</p>
-            </div>
-        </div>
-
-        <h2 class="text-center mt-5">Ubicación de nuestra sede Central</h2>
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2387.6003714333397!2d-66.8545350204168!3d-29.413651577493884!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9427da4ab5352927%3A0x3c0d39d87857c2ce!2sPlaza%2025%20de%20Mayo!5e0!3m2!1ses-419!2sar!4v1729208093706!5m2!1ses-419!2sar" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>            </div>
         </div>
     </div>
-
+    <!-- Page Header End -->
+    <!-- Contact Start -->
+    <div class="container-fluid pt-5">
+        <div class="text-center mb-4">
+            <h2 class="section-title px-5"><span class="px-2">Contáctenos para cualquier consulta</span></h2>
+        </div>
+        <div class="row px-xl-5">
+            <div class="col-lg-7 mb-5 text-justify">
+                <div class="contact-form">
+                    <div id="success"></div>
+                    <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                        <div class="control-group">
+                            <input type="text" class="form-control" id="name" placeholder="Tu Nombre"
+                                required="required" data-validation-required-message="Please enter your name" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <input type="email" class="form-control" id="email" placeholder="Tú Email"
+                                required="required" data-validation-required-message="Please enter your email" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <input type="text" class="form-control" id="subject" placeholder="Asunto"
+                                required="required" data-validation-required-message="Please enter a subject" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <textarea class="form-control" rows="6" id="message" placeholder="Escribe aquí tu mensaje"
+                                required="required"
+                                data-validation-required-message="Please enter your message"></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Enviar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-5 mb-5 text-center"> <!-- Cambiado text-justify por text-center -->
+                <h5 class="font-weight-semi-bold mb-3">¡Estamos aquí para ayudarte!</h5>
+                <p>Si tienes alguna pregunta, comentario o inquietud, no dudes en ponerte en contacto con nosotros. Completa el formulario a continuación y nuestro equipo se comunicará contigo lo antes posible. Tu opinión es muy importante para nosotros y estamos comprometidos a brindarte la mejor atención. ¡Esperamos saber de ti pronto!</p>
+                <div class="d-flex flex-column mb-3">
+                    <h5 class="font-weight-semi-bold mb-3">Nuestros datos</h5>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>La Rioja, Argentina</p>
+                    <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@gmail.com</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>3804 12345678</p>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- Contact End -->
     <%- include('partials/footer') %>
     <%- include('partials/script') %>
 </body>
