@@ -59,10 +59,27 @@
     button:hover {
         background-color: #c0392b;
     }
+
+    .btn-logout {
+  background-color: #e74c3c; /* rojo */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.btn-logout:hover {
+  background-color: #c0392b;
+}
+
 </style>
 
 <body>
     <%- include('../partials/header') %>
+    <button type="submit" class="btn-logout">Cerrar sesión</button>
 
     <div class="container">
         <h1>Perfil de <%= user.nombres %> <%= user.apellidos %></h1>

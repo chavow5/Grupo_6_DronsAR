@@ -2,36 +2,30 @@ Grupo_6_DronsAR
 ├── .gitignore
 ├── .sequelizerc
 ├── app.js
+├── bd.txt
 ├── controllers
 │   ├── dron.js
 │   └── usersController.js
 ├── database
 │   ├── config
 │   │   └── config.json
+│   ├── dronsar.sql
 │   ├── migrations
 │   ├── models
-│   │   └── index.js
+│   │   ├── index.js
+│   │   ├── products.js
 │   │   └── user.js
 │   └── seeders
 ├── diagrama.txt
 ├── middleware
 │   └── authMiddleware.js
-├── models
-│   ├── drones.json
-│   ├── index.js
-│   └── users.json
+├── node_modules
 ├── package-lock.json
 ├── package.json
 ├── public
 │   ├── css
-│   ├── fonts
 │   ├── img
-│   │   ├── productsImg
-│   │   ├── tarjetas.png
-│   │   └── users
 │   └── js
-├── README copy.md
-├── README.md
 ├── routes
 │   ├── dron.js
 │   └── users.js
@@ -41,6 +35,8 @@ Grupo_6_DronsAR
 │   ├── userDatasource.js
 │   └── userFileUpload.js
 └── views
+    ├── about.ejs
+    ├── contact.ejs
     ├── index.ejs
     ├── not-found.ejs
     ├── partials

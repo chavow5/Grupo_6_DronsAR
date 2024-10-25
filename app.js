@@ -15,15 +15,19 @@ const dronRouter = require("./routes/dron");
 const usersRoutes = require('./routes/users');
 const authMiddleware = require('./middleware/authMiddleware');
 
+
 // Configuración de sesiones y cookies
 app.use(session({
-    secret: 'dronsarSecret',
+    secret: 'tu-secreto',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false, // Cambia a false para no guardar sesiones no inicializadas
+    cookie: {
+      maxAge: 1000 * 60 * 30 // 30 minutos; cambia este valor según lo que necesites
+    }
   }));
-  app.use(cookies());
+app.use(cookies());
 
-  // Middleware para autenticar automáticamente si la cookie userEmail existe
+// Middleware para autenticar automáticamente si la cookie userEmail existe
 app.use(async (req, res, next) => {
     if (!req.session.user && req.cookies.userEmail) {
         try {
@@ -38,6 +42,15 @@ app.use(async (req, res, next) => {
     }
     next();
 });
+
+// Middleware para asignar `user` a `res.locals` después de haber configurado las sesiones y cookies
+app.use((req, res, next) => {
+    res.locals.user = req.session.user || null;
+    next();
+});
+
+app.use(authMiddleware.rememberUser); // Aplicar el middleware globalmente
+
 
 // Definir la ubicación de los archivos estáticos
 app.use(express.static('public'));

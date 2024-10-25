@@ -33,7 +33,7 @@ const usersController = {
   },
   login: async (req, res) => {
     try {
-      const { email, password } = req.body;
+      const { email, password, remember } = req.body;
   
       // Buscar el usuario por el email
       const user = await User.findOne({ where: { email } });
@@ -48,8 +48,6 @@ const usersController = {
       if (!isPasswordValid) {
         return res.status(400).send('El email o la contraseña son incorrectos.');
       }
-
-      
   
       // Guardar información del usuario en la sesión
       req.session.user = {
@@ -60,7 +58,14 @@ const usersController = {
         profileImage: user.profileImage,
       };
   
-      // Redirigir a la página de perfil o a donde desees
+      // Manejo de "Recordarme"
+  if (remember) {
+    res.cookie('userEmail', user.email, { maxAge: 1000 * 60 * 60 * 24 * 30 }); // 30 días
+  } else {
+    res.clearCookie('userEmail'); // Asegúrate de limpiar la cookie si no se selecciona "Recordar"
+  }
+  
+      // Redirigir a la página de perfil
       res.redirect('/users/perfil');
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
@@ -74,6 +79,9 @@ const usersController = {
         console.error('Error al cerrar sesión:', err);
         return res.status(500).send('Error interno del servidor');
       }
+  
+      // Eliminar la cookie 'userEmail' si existía
+      res.clearCookie('userEmail');
   
       // Redirigir a la página de inicio o a donde desees
       res.redirect('/login');
