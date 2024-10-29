@@ -1,6 +1,7 @@
 'use strict';
 
 const db = require('../database/models');
+
 const Product = db.Product;
 const crypto = require('crypto');
 
@@ -154,7 +155,130 @@ getProductoById: async (req, res) => {
       console.error('Error al eliminar el producto:', error);
       res.status(500).send('Error interno del servidor');
     }
+  },
+
+
+  // API
+
+  getAllProducts: async (req, res) => {
+    try {
+      const products = await Product.findAll(); // Obtiene todos los productos desde la base de datos
+      res.json(products); // Devuelve todos los productos en formato JSON
+    } catch (error) {
+      console.error('Error al obtener productos:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  },
+
+  getProductById: async (req, res) => {
+    try {
+      const productId = req.params.id; // Obtenemos el id del producto desde los parámetros
+      const product = await Product.findByPk(productId); // Buscamos el producto en la base de datos
+      
+      if (!product) {
+        return res.status(404).json({ error: 'Producto no encontrado' }); // Si no se encuentra, devolvemos un error
+      }
+      res.json(product); // Devuelve el producto encontrado en formato JSON
+    } catch (error) {
+      console.error('Error al obtener el producto por ID:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  },
+
+  createProduct: async (req, res) => {
+    try {
+      const { nombre, marca, modelo, descripcion, categoria, precio, peso, duracionBateria, camara, tipoSensores, altura, velocidad, descuento } = req.body;
+
+      // Validaciones simples
+      if (!nombre || !marca || !precio) {
+        return res.status(400).json({ error: 'Los campos nombre, marca y precio son obligatorios' });
+      }
+
+      const newProduct = await Product.create({
+        id: crypto.randomUUID(),
+        nombre,
+        marca,
+        modelo,
+        descripcion,
+        categoria,
+        precio,
+        peso,
+        duracionBateria,
+        camara,
+        tipoSensores,
+        altura,
+        velocidad,
+        descuento,
+        image: req.file ? req.file.filename : 'default.png' // Si no se sube imagen, usar default
+      });
+
+      res.status(201).json(newProduct); // Devuelve el nuevo producto creado
+    } catch (error) {
+      console.error('Error al crear el producto:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  },
+
+  updateProduct: async (req, res) => {
+    try {
+      const productId = req.params.id;
+      const { nombre, marca, modelo, descripcion, categoria, precio, peso, duracionBateria, camara, tipoSensores, altura, velocidad, descuento } = req.body;
+
+      // Validaciones simples
+      if (!nombre || !marca || !precio) {
+        return res.status(400).json({ error: 'Los campos nombre, marca y precio son obligatorios' });
+      }
+
+      const product = await Product.findByPk(productId);
+      if (!product) {
+        return res.status(404).json({ error: 'Producto no encontrado' });
+      }
+
+      // Actualizar el producto
+      await Product.update({
+        nombre,
+        marca,
+        modelo,
+        descripcion,
+        categoria,
+        precio,
+        peso,
+        duracionBateria,
+        camara,
+        tipoSensores,
+        altura,
+        velocidad,
+        descuento,
+        image: req.file ? req.file.filename : product.image // Mantener la imagen anterior si no se sube nueva
+      }, { where: { id: productId } });
+
+      res.json({ message: 'Producto actualizado con éxito', productId }); // Devuelve un mensaje de éxito
+    } catch (error) {
+      console.error('Error al actualizar el producto:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  },
+
+  deleteProduct: async (req, res) => {
+    try {
+      const productId = req.params.id;
+
+      const product = await Product.findByPk(productId);
+      if (!product) {
+        return res.status(404).json({ error: 'Producto no encontrado' });
+      }
+
+      await Product.destroy({ where: { id: productId } });
+
+      res.json({ message: 'Producto eliminado con éxito' }); // Devuelve un mensaje de éxito
+    } catch (error) {
+      console.error('Error al eliminar el producto:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
   }
+  
 };
+
+ 
 
 module.exports = dronController;

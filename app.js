@@ -7,6 +7,11 @@ const session = require('express-session');
 const cookies = require('cookie-parser');
 const userDatasource = require('./services/userDatasource');
 
+const productApiRoutes = require('./routes/api/products'); // Rutas de API para productos
+const userApiRoutes = require('./routes/api/users'); // Rutas de API para usuarios
+
+// Middleware para analizar JSON
+app.use(express.json());
 
 // Rutas de productos
 const dronRouter = require("./routes/dron");
@@ -14,6 +19,10 @@ const dronRouter = require("./routes/dron");
 // Rutas de usuarios
 const usersRoutes = require('./routes/users');
 const authMiddleware = require('./middleware/authMiddleware');
+
+// Rutas de API
+app.use('/api/products', productApiRoutes);
+app.use('/api/users', userApiRoutes);
 
 
 // Configuración de sesiones y cookies

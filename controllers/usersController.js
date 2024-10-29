@@ -60,7 +60,7 @@ const usersController = {
   
       // Manejo de "Recordarme"
   if (remember) {
-    res.cookie('userEmail', user.email, { maxAge: 1000 * 60 * 60 * 24 * 30 }); // 30 días
+    res.cookie('userEmail', user.email, { maxAge: 1000 * 60 * 60 * 24 * 30, httpOnly: true }); // 30 días
   } else {
     res.clearCookie('userEmail'); // Asegúrate de limpiar la cookie si no se selecciona "Recordar"
   }
@@ -86,7 +86,74 @@ const usersController = {
       // Redirigir a la página de inicio o a donde desees
       res.redirect('/login');
     });
+  },
+
+
+  //api
+
+  getAllUsers: async (req, res) => {
+    try {
+      const users = await User.findAll(); // Obtener todos los usuarios de la base de datos
+      res.json(users); // Devolver todos los usuarios
+    } catch (error) {
+      console.error('Error al obtener usuarios:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  },
+
+  getUserById: async (req, res) => {
+    try {
+      const user = await User.findByPk(req.params.id); // Buscar el usuario por ID
+      if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
+      res.json(user);
+    } catch (error) {
+      console.error('Error al obtener el usuario:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  },
+
+  createUser: async (req, res) => {
+    try {
+      const newUser = await User.create({
+        id: crypto.randomUUID(), // Si usas ID manualmente, considera si es necesario
+        ...req.body,
+        profileImage: req.file ? req.file.filename : 'default.png'
+      });
+      res.status(201).json(newUser);
+    } catch (error) {
+      console.error('Error al crear el usuario:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  },
+
+  updateUser: async (req, res) => {
+    try {
+      const user = await User.findByPk(req.params.id);
+      if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
+
+      await user.update(req.body); // Actualiza el usuario
+      res.json(user);
+    } catch (error) {
+      console.error('Error al actualizar el usuario:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  },
+
+  deleteUser: async (req, res) => {
+    try {
+      const user = await User.findByPk(req.params.id);
+      if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
+
+      await user.destroy(); // Elimina el usuario
+      res.status(204).send();
+    } catch (error) {
+      console.error('Error al eliminar el usuario:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
   }
+
 };
+
+  
 
 module.exports = usersController;
