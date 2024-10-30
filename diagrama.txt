@@ -6,6 +6,37 @@ Grupo_6_DronsAR
 ├── controllers
 │   ├── dron.js
 │   └── usersController.js
+├── dashboard
+│   ├── .gitignore
+│   ├── node_modules
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── public
+│   │   ├── favicon.ico
+│   │   ├── index.html
+│   │   ├── logo192.png
+│   │   ├── logo512.png
+│   │   ├── manifest.json
+│   │   └── robots.txt
+│   ├── README.md
+│   └── src
+│       ├── apiService.js
+│       ├── App.css
+│       ├── App.js
+│       ├── App.test.js
+│       ├── components
+│       │   ├── CategoriesWithProducts.jsx
+│       │   ├── LastCreatedProduct.jsx
+│       │   ├── ProductsList.jsx
+│       │   ├── TotalCategories.jsx
+│       │   ├── TotalProducts.jsx
+│       │   └── TotalUsers.jsx
+│       ├── Dashboard.jsx
+│       ├── index.css
+│       ├── index.js
+│       ├── logo.svg
+│       ├── reportWebVitals.js
+│       └── setupTests.js
 ├── database
 │   ├── config
 │   │   └── config.json
@@ -17,16 +48,14 @@ Grupo_6_DronsAR
 │   │   └── user.js
 │   └── seeders
 ├── diagrama.txt
+├── Informacion-DIGITAL HOUSE-INTEGRANTES
 ├── middleware
 │   └── authMiddleware.js
 ├── node_modules
-├── package-lock.json
-├── package.json
-├── public
-│   ├── css
-│   ├── img
-│   └── js
 ├── routes
+│   ├── api
+│   │   ├── products.js
+│   │   └── users.js
 │   ├── dron.js
 │   └── users.js
 ├── services

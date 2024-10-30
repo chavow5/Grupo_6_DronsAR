@@ -114,9 +114,15 @@ const usersController = {
 
   createUser: async (req, res) => {
     try {
+      const { password } = req.body;
+      if (!password) {
+        throw new Error('La contraseña es requerida');
+      }
+      const hashedPassword = bcrypt.hashSync(password, 10);
       const newUser = await User.create({
         id: crypto.randomUUID(), // Si usas ID manualmente, considera si es necesario
         ...req.body,
+        password: hashedPassword,
         profileImage: req.file ? req.file.filename : 'default.png'
       });
       res.status(201).json(newUser);

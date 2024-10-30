@@ -13,6 +13,10 @@ const userApiRoutes = require('./routes/api/users'); // Rutas de API para usuari
 // Middleware para analizar JSON
 app.use(express.json());
 
+const cors = require('cors');
+app.use(cors());
+
+
 // Rutas de productos
 const dronRouter = require("./routes/dron");
 
