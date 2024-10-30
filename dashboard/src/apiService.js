@@ -28,9 +28,14 @@ export async function fetchProductsList() {
   return response.json();
 }
 
-// Función para obtener la lista de productos
-export async function fetchProducts() {  // Agregada
+
+
+// Función para obtener la lista de productos y contar el total
+export async function fetchProducts() {
   const response = await fetch(`${API_BASE_URL}/products`);
+  if (!response.ok) {
+    throw new Error(`Error ${response.status}`);
+  }
   return response.json();
 }
 

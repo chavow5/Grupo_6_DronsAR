@@ -1,12 +1,14 @@
-// dashboard/src/components/TotalProducts.jsx
 import React, { useEffect, useState } from 'react';
-import { fetchTotals } from '../apiService';
+import { fetchProducts } from '../apiService';
 
 function TotalProducts() {
   const [totalProducts, setTotalProducts] = useState(0);
 
   useEffect(() => {
-    fetchTotals().then(data => setTotalProducts(data.products));
+    fetchProducts().then(data => {
+      // Suponiendo que 'data' es un array de productos
+      setTotalProducts(data.length); // Cuenta la cantidad de productos en la respuesta
+    });
   }, []);
 
   return (
