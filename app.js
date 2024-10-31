@@ -10,6 +10,9 @@ const userDatasource = require('./services/userDatasource');
 const productApiRoutes = require('./routes/api/products'); // Rutas de API para productos
 const userApiRoutes = require('./routes/api/users'); // Rutas de API para usuarios
 
+const categoryRoutes = require('./routes/categories');
+const apiCategoryRoutes = require('./routes/api/categories');
+
 // Middleware para analizar JSON
 app.use(express.json());
 
@@ -22,11 +25,15 @@ const dronRouter = require("./routes/dron");
 
 // Rutas de usuarios
 const usersRoutes = require('./routes/users');
+
+
+
 const authMiddleware = require('./middleware/authMiddleware');
 
 // Rutas de API
 app.use('/api/products', productApiRoutes);
 app.use('/api/users', userApiRoutes);
+app.use('/api/categories', apiCategoryRoutes);
 
 
 // Configuración de sesiones y cookies
@@ -119,6 +126,8 @@ app.get('/carrito-compra', (req, res) => {
 app.use('/productos', dronRouter);
 // Usar las rutas de usuarios
 app.use('/users', usersRoutes);
+
+app.use('/categories', categoryRoutes);
 
 
 //definicion del puerto
