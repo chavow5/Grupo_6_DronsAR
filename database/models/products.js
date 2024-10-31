@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   const Product = sequelize.define('Product', {
     id: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4, // Para usar UUID como identificador único
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     nombre: {
@@ -21,10 +21,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     descripcion: {
       type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    categoria: {
-      type: DataTypes.STRING,
       allowNull: true,
     },
     precio: {
@@ -64,6 +60,14 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'default.png',
       allowNull: true,
     },
+    category_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'categories', // Nombre de la tabla `categories`
+        key: 'id'
+      }
+    },
     createdAt: {
       type: DataTypes.DATE,
       field: 'createdAt',
@@ -73,10 +77,16 @@ module.exports = (sequelize, DataTypes) => {
       field: 'updatedAt',
     },
   }, {
-    tableName: 'products', // Nombre de la tabla en la base de datos
-  underscored: false, // Para evitar el formato de campos con guiones bajos
-  timestamps: true, // Habilitar la gestión automática de createdAt y updatedAt
+    tableName: 'products',
   });
+
+  // Definir la relación con Category
+  Product.associate = models => {
+    Product.belongsTo(models.Category, {
+      foreignKey: 'category_id',
+      as: 'category',
+    });
+  };
 
   return Product;
 };

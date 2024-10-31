@@ -2,8 +2,11 @@
 
 const db = require('../database/models');
 
-const Product = db.Product;
+const { Product, Category } = db;
+
 const crypto = require('crypto');
+
+
 
 const dronController = {
   // Método para mostrar todos los productos
@@ -18,15 +21,40 @@ const dronController = {
     }
   },
 
-  // Método para mostrar el formulario de agregar producto
-  getAddForm: (req, res) => {
-    res.render('products/agregarProducto'); // Renderiza el formulario para agregar un producto
+   // Función para obtener todos los drones
+   getAllDrones: async (req, res) => {
+    try {
+      const drones = await Product.findAll({
+        include: {
+          model: Category,
+          as: 'category', // Debes usar el alias que definiste en la relación
+          attributes: ['nombre'], // Asegúrate de obtener el nombre de la categoría
+        },
+      });
+
+      res.render('productos', { drones });
+    } catch (error) {
+      console.error('Error al obtener drones:', error);
+      res.status(500).send('Error interno del servidor');
+    }
   },
+
+  // Método para mostrar el formulario de agregar producto
+  getAddForm: async (req, res) => {
+    try {
+      const categories = await Category.findAll();
+      res.render('products/agregarProducto', { categories });
+    } catch (error) {
+      console.error('Error al cargar el formulario de agregar producto:', error);
+      res.status(500).send('Error interno del servidor');
+    }
+  },
+
 
   // Método para agregar un producto
   create: async (req, res) => {
     try {
-      const { nombre, marca, modelo, descripcion, categoria, precio, peso, duracionBateria, camara, tipoSensores, altura, velocidad, descuento, image } = req.body;
+      const { nombre, marca, modelo, descripcion, category_id, precio, peso, duracionBateria, camara, tipoSensores, altura, velocidad, descuento, image } = req.body;
 
       // Validaciones simples (se puede mejorar con más validaciones)
       if (!nombre || !marca || !precio) {
@@ -40,7 +68,7 @@ const dronController = {
         marca,
         modelo,
         descripcion,
-        categoria,
+        category_id,
         precio,
         peso,
         duracionBateria,
@@ -59,48 +87,60 @@ const dronController = {
       res.status(500).send('Error interno del servidor');
     }
   },
+  
 
   // Método para mostrar el detalle de un producto
   // Método para mostrar el detalle de un producto
-getProductoById: async (req, res) => {
-  try {
-    const productId = req.params.id; // Obtenemos el id del producto desde los parámetros
-    const product = await Product.findByPk(productId); // Buscamos el producto en la base de datos
-    
-    if (!product) {
-      return res.status(404).send('Producto no encontrado'); // Si no se encuentra, devolvemos un error
+  getProductoById: async (req, res) => {
+    try {
+      const productId = req.params.id; // Obtenemos el id del producto desde los parámetros
+      const product = await Product.findByPk(productId, {
+        include: {
+          model: Category,
+          as: 'category', // Debes usar el alias que definiste en la relación
+          attributes: ['nombre'], // Asegúrate de obtener el nombre de la categoría
+        },
+      }); // Busca el producto incluyendo la categoría
+  
+      if (!product) {
+        return res.status(404).send('Producto no encontrado'); // Si no se encuentra, devolvemos un error
+      }
+      res.render('products/detalle-producto', { dron: product });
+  
+    } catch (error) {
+      console.error('Error al obtener el detalle del producto:', error);
+      res.status(500).send('Error interno del servidor');
     }
-    res.render('products/detalle-producto', { dron: product });
-
-  } catch (error) {
-    console.error('Error al obtener el detalle del producto:', error);
-    res.status(500).send('Error interno del servidor');
-  }
-},
+  },
 
 
   // Método para mostrar el formulario de edición
-  getEditForm: async (req, res) => {
-    try {
+  // Método para mostrar el formulario de edición
+getEditForm: async (req, res) => {
+  try {
       const productId = req.params.id;
       const product = await Product.findByPk(productId);
 
       if (!product) {
-        return res.status(404).send('Producto no encontrado');
+          return res.status(404).send('Producto no encontrado');
       }
-      
-      res.render('products/editarProducto', { dron: product });
-    } catch (error) {
+
+      // Obtener todas las categorías
+      const categories = await Category.findAll();
+
+      res.render('products/editarProducto', { dron: product, categorias: categories }); // Aquí pasas las categorías
+  } catch (error) {
       console.error('Error al obtener el producto para editar:', error);
       res.status(500).send('Error interno del servidor');
-    }
-  },
+  }
+},
+
 
   // Método para actualizar un producto
   updateOne: async (req, res) => {
     try {
         const productId = req.params.id;
-        const { nombre, marca, modelo, descripcion, categoria, precio, peso, duracionBateria, camara, tipoSensores, altura, velocidad, descuento } = req.body;
+        const { nombre, marca, modelo, descripcion, category_id, precio, peso, duracionBateria, camara, tipoSensores, altura, velocidad, descuento } = req.body;
 
         // Validaciones simples
         if (!nombre || !marca || !precio) {
@@ -118,7 +158,7 @@ getProductoById: async (req, res) => {
             marca,
             modelo,
             descripcion,
-            categoria,
+            category_id,
             precio,
             peso,
             duracionBateria,

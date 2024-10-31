@@ -1,8 +1,13 @@
 (function ($) {
   "use strict";
 
+  // Configuración de constantes
+  const NAV_TEXT = ["next", "previous"];
+  const AUTOPLAY_TIMEOUT = 5000;
+  const SLIDE_SPEED = 1000;
+
+  // Popup para videos
   $('.popup-youtube, .popup-vimeo').magnificPopup({
-    // disableOn: 700,
     type: 'iframe',
     mainClass: 'mfp-fade',
     removalDelay: 160,
@@ -10,180 +15,103 @@
     fixedContentPos: false
   });
 
-
-
-  var review = $('.textimonial_iner');
-  if (review.length) {
-    review.owlCarousel({
-      items: 1,
-      loop: true,
-      dots: true,
-      autoplay: true,
-      autoplayHoverPause: true,
-      autoplayTimeout: 5000,
-      nav: false,
-      responsive: {
-        0: {
-          margin: 15,
-
-        },
-        600: {
-          margin: 10,
-        },
-        1000: {
-          margin: 10,
-        }
-      }
-    });
-  }
-  var best_product_slider = $('.best_product_slider');
-  if (best_product_slider.length) {
-    best_product_slider.owlCarousel({
-      items: 4,
-      loop: true,
-      dots: false,
-      autoplay: true,
-      autoplayHoverPause: true,
-      autoplayTimeout: 5000,
-      nav: true,
-      navText: ["next", "previous"],
-      responsive: {
-        0: {
-          margin: 15,
-          items: 1,
-          nav: false
-        },
-        576: {
-          margin: 15,
-          items: 2,
-          nav: false
-        },
-        768: {
-          margin: 30,
-          items: 3,
-          nav: true
-        },
-        991: {
-          margin: 30,
-          items: 4,
-          nav: true
-        }
-      }
-    });
+  // Función para inicializar carousels
+  function initCarousel(selector, options) {
+    if ($(selector).length) {
+      $(selector).owlCarousel(options);
+    }
   }
 
-  //product list slider
-  var product_list_slider = $('.product_list_slider');
-  if (product_list_slider.length) {
-    product_list_slider.owlCarousel({
-      items: 1,
-      loop: true,
-      dots: false,
-      autoplay: true,
-      autoplayHoverPause: true,
-      autoplayTimeout: 5000,
-      nav: true,
-      navText: ["next", "previous"],
-      smartSpeed: 1000,
-      responsive: {
-        0: {
-          margin: 15,
-          nav: false,
-          items: 1
-        },
-        600: {
-          margin: 15,
-          items: 1,
-          nav: false
-        },
-        768: {
-          margin: 30,
-          nav: true,
-          items: 1
-        }
-      }
-    });
-  }
+  // Carousel de testimonios
+  initCarousel('.textimonial_iner', {
+    items: 1,
+    loop: true,
+    dots: true,
+    autoplay: true,
+    autoplayHoverPause: true,
+    autoplayTimeout: AUTOPLAY_TIMEOUT,
+    nav: false
+  });
 
-  //single banner slider
-  // var banner_slider = $('.banner_slider');
-  // if (banner_slider.length) {
-  //   banner_slider.owlCarousel({
-  //     items: 1,
-  //     loop: true,
-  //     dots: false,
-  //     autoplay: true,
-  //     autoplayHoverPause: true,
-  //     autoplayTimeout: 5000,
-  //     nav: true,
-  //     navText: ["next","previous"],
-  //     smartSpeed: 1000,
-  //   });
-  // }
+  // Carousel de productos
+  initCarousel('.best_product_slider', {
+    items: 4,
+    loop: true,
+    dots: false,
+    autoplay: true,
+    autoplayHoverPause: true,
+    autoplayTimeout: AUTOPLAY_TIMEOUT,
+    nav: true,
+    navText: NAV_TEXT,
+    responsive: {
+      0: { margin: 15, items: 1, nav: false },
+      576: { margin: 15, items: 2, nav: false },
+      768: { margin: 30, items: 3, nav: true },
+      991: { margin: 30, items: 4, nav: true }
+    }
+  });
 
-  if ($('.img-gal').length > 0) {
+  // Carousel de lista de productos
+  initCarousel('.product_list_slider', {
+    items: 1,
+    loop: true,
+    dots: false,
+    autoplay: true,
+    autoplayHoverPause: true,
+    autoplayTimeout: AUTOPLAY_TIMEOUT,
+    nav: true,
+    navText: NAV_TEXT,
+    smartSpeed: SLIDE_SPEED,
+    responsive: {
+      0: { margin: 15, nav: false, items: 1 },
+      600: { margin: 15, items: 1, nav: false },
+      768: { margin: 30, nav: true, items: 1 }
+    }
+  });
+
+  // Popup para galería de imágenes
+  if ($('.img-gal').length) {
     $('.img-gal').magnificPopup({
       type: 'image',
-      gallery: {
-        enabled: true
-      }
+      gallery: { enabled: true }
     });
   }
 
-
-  //single banner slider
+  // Carousel del banner
   $('.banner_slider').on('initialized.owl.carousel changed.owl.carousel', function (e) {
-    function pad2(number) {
-      return (number < 10 ? '0' : '') + number
-    }
-    var carousel = e.relatedTarget;
+    const carousel = e.relatedTarget;
     $('.slider-counter').text(pad2(carousel.current()));
-
   }).owlCarousel({
     items: 1,
     loop: true,
     dots: false,
     autoplay: true,
     autoplayHoverPause: true,
-    autoplayTimeout: 5000,
+    autoplayTimeout: AUTOPLAY_TIMEOUT,
     nav: true,
-    navText: ["next", "previous"],
-    smartSpeed: 1000,
+    navText: NAV_TEXT,
+    smartSpeed: SLIDE_SPEED,
     responsive: {
-      0: {
-        nav: false
-      },
-      600: {
-        nav: false
-      },
-      768: {
-        nav: true
-      }
+      0: { nav: false },
+      600: { nav: false },
+      768: { nav: true }
     }
   });
 
+  // Función para agregar ceros a la izquierda
+  function pad2(number) {
+    return (number < 10 ? '0' : '') + number;
+  }
 
-
-  // niceSelect js code
+  // Inicialización de niceSelect
   $(document).ready(function () {
     $('select').niceSelect();
   });
 
-  // menu fixed js code
-  // $(window).scroll(function () {
-  //   var window_top = $(window).scrollTop() + 1;
-  //   if (window_top > 50) {
-  //     $('.main_menu').addClass('menu_fixed animated fadeInDown');
-  //   } else {
-  //     $('.main_menu').removeClass('menu_fixed animated fadeInDown');
-  //   }
-  // });
+  // Contador
+  $('.counter').counterUp({ time: 2000 });
 
-
-  $('.counter').counterUp({
-    time: 2000
-  });
-
+  // Slick slider
   $('.slider').slick({
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -193,7 +121,7 @@
     asNavFor: '.slider-nav-thumbnails',
     autoplay: true,
     pauseOnFocus: true,
-    dots: true,
+    dots: true
   });
 
   $('.slider-nav-thumbnails').slick({
@@ -205,16 +133,10 @@
     prevArrow: false,
     nextArrow: false,
     centerMode: true,
-    responsive: [{
-      breakpoint: 480,
-      settings: {
-        centerMode: false,
-      }
-    }]
+    responsive: [{ breakpoint: 480, settings: { centerMode: false } }]
   });
 
-
-  // Search Toggle
+  // Toggle de búsqueda
   $("#search_input_box").hide();
   $("#search_1").on("click", function () {
     $("#search_input_box").slideToggle();
@@ -224,252 +146,154 @@
     $('#search_input_box').slideUp(500);
   });
 
-  //------- Mailchimp js --------//  
+  // Función para Mailchimp
   function mailChimp() {
     $('#mc_embed_signup').find('form').ajaxChimp();
   }
   mailChimp();
 
-  //------- makeTimer js --------//  
+  // Temporizador
   function makeTimer() {
+    const endTime = new Date("27 Sep 2019 12:56:00 GMT+01:00");
+    const now = new Date();
+    const timeLeft = (endTime - now) / 1000;
 
-    //		var endTime = new Date("29 April 2018 9:56:00 GMT+01:00");	
-    var endTime = new Date("27 Sep 2019 12:56:00 GMT+01:00");
-    endTime = (Date.parse(endTime) / 1000);
+    const days = Math.floor(timeLeft / 86400);
+    const hours = Math.floor((timeLeft % 86400) / 3600);
+    const minutes = Math.floor((timeLeft % 3600) / 60);
+    const seconds = Math.floor(timeLeft % 60);
 
-    var now = new Date();
-    now = (Date.parse(now) / 1000);
-
-    var timeLeft = endTime - now;
-
-    var days = Math.floor(timeLeft / 86400);
-    var hours = Math.floor((timeLeft - (days * 86400)) / 3600);
-    var minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600)) / 60);
-    var seconds = Math.floor((timeLeft - (days * 86400) - (hours * 3600) - (minutes * 60)));
-
-    if (hours < "10") {
-      hours = "0" + hours;
-    }
-    if (minutes < "10") {
-      minutes = "0" + minutes;
-    }
-    if (seconds < "10") {
-      seconds = "0" + seconds;
-    }
-
-    $("#days").html("<span>Days</span>" + days);
-    $("#hours").html("<span>Hours</span>" + hours);
-    $("#minutes").html("<span>Minutes</span>" + minutes);
-    $("#seconds").html("<span>Seconds</span>" + seconds);
-
+    $("#days").html("<span>Days</span>" + pad2(days));
+    $("#hours").html("<span>Hours</span>" + pad2(hours));
+    $("#minutes").html("<span>Minutes</span>" + pad2(minutes));
+    $("#seconds").html("<span>Seconds</span>" + pad2(seconds));
   }
-// click counter js
-(function() {
-  window.inputNumber = function(el) {
-      var min = el.attr('min') || false;
-      var max = el.attr('max') || false;
 
-      // Asignar eventos a los botones de incremento y decremento
-      el.each(function() {
-          var input = $(this);
-          var dec = input.prev('.inumber-decrement');
-          var inc = input.next('.number-increment');
+  setInterval(makeTimer, 1000);
 
-          dec.on('click', function() {
-              var value = parseInt(input.val());
-              value--;
-              if (!min || value >= min) {
-                  input.val(value);
-              }
-          });
+  // Click counter
+  (function () {
+    window.inputNumber = function (el) {
+      const min = el.attr('min') || false;
+      const max = el.attr('max') || false;
 
-          inc.on('click', function() {
-              var value = parseInt(input.val());
-              value++;
-              if (!max || value <= max) {
-                  input.val(value);
-              }
-          });
+      el.each(function () {
+        const input = $(this);
+        const dec = input.prev('.inumber-decrement');
+        const inc = input.next('.number-increment');
+
+        dec.on('click', function () {
+          let value = parseInt(input.val()) || 0;
+          if (!min || value > min) {
+            input.val(--value);
+          }
+        });
+
+        inc.on('click', function () {
+          let value = parseInt(input.val()) || 0;
+          if (!max || value < max) {
+            input.val(++value);
+          }
+        });
       });
+    };
+  })();
+
+  // Inicializar click counter
+  inputNumber($('.input-number'));
+
+  // Carousel de producto vertical
+  var product_overview = $('#vertical');
+  if (product_overview.length) {
+    product_overview.lightSlider({
+      gallery: true,
+      item: 1,
+      vertical: true,
+      verticalHeight: 450,
+      thumbItem: 3,
+      slideMargin: 0,
+      speed: 600,
+      autoplay: true,
+      responsive: [
+        { breakpoint: 991, settings: { item: 1 } },
+        { breakpoint: 576, settings: { item: 1, verticalHeight: 350 } }
+      ]
+    });
   }
-})();
 
-// Inicializar la función
-inputNumber($('.input-number'));
-
-
-
-  setInterval(function () {
-    makeTimer();
-  }, 1000);
-
-  // click counter js
-
-
-  // var a = 0;
-  // $('.increase').on('click', function(){
-     
-    
-
-  //   console.log(  $(this).innerHTML='Product Count: '+ a++ );
-  // });
-
- var product_overview = $('#vertical');
- if(product_overview.length){
-  product_overview.lightSlider({
-    gallery:true,
-    item:1,
-    vertical:true,
-    verticalHeight:450,
-    thumbItem:3,
-    slideMargin:0,
-    speed:600,
-    autoplay: true,
-    responsive : [
-      {
-          breakpoint:991,
-          settings: {
-              item:1,
-              
-            }
-      },
-      {
-          breakpoint:576,
-          settings: {
-              item:1,
-              slideMove:1,
-              verticalHeight:350,
-            }
-      }
-  ]
-  });  
- }
-    
-
- (function ($) {
-  "use strict";
-  
-  // Dropdown on mouse hover
+  // Dropdown en mouse hover
   $(document).ready(function () {
-      function toggleNavbarMethod() {
-          if ($(window).width() > 992) {
-              $('.navbar .dropdown').on('mouseover', function () {
-                  $('.dropdown-toggle', this).trigger('click');
-              }).on('mouseout', function () {
-                  $('.dropdown-toggle', this).trigger('click').blur();
-              });
-          } else {
-              $('.navbar .dropdown').off('mouseover').off('mouseout');
+    function toggleNavbarMethod() {
+      if ($(window).width() > 992) {
+        $('.navbar .dropdown').hover(
+          function () {
+            $('.dropdown-toggle', this).trigger('click');
+          },
+          function () {
+            $('.dropdown-toggle', this).trigger('click').blur();
           }
+        );
+      } else {
+        $('.navbar .dropdown').off('mouseenter mouseleave');
       }
-      toggleNavbarMethod();
-      $(window).resize(toggleNavbarMethod);
+    }
+    toggleNavbarMethod();
+    $(window).resize(toggleNavbarMethod);
   });
-  
-  
-  // Back to top button
+
+  // Botón de volver al principio
   $(window).scroll(function () {
-      if ($(this).scrollTop() > 100) {
-          $('.back-to-top').fadeIn('slow');
-      } else {
-          $('.back-to-top').fadeOut('slow');
-      }
-  });
-  $('.back-to-top').click(function () {
-      $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
-      return false;
-  });
-
-
-  // Vendor carousel
-  $('.vendor-carousel').owlCarousel({
-      loop: true,
-      margin: 29,
-      nav: false,
-      autoplay: true,
-      smartSpeed: 1000,
-      responsive: {
-          0:{
-              items:2
-          },
-          576:{
-              items:3
-          },
-          768:{
-              items:4
-          },
-          992:{
-              items:5
-          },
-          1200:{
-              items:6
-          }
-      }
-  });
-
-
-  // Related carousel
-  $('.related-carousel').owlCarousel({
-      loop: true,
-      margin: 29,
-      nav: false,
-      autoplay: true,
-      smartSpeed: 1000,
-      responsive: {
-          0:{
-              items:1
-          },
-          576:{
-              items:2
-          },
-          768:{
-              items:3
-          },
-          992:{
-              items:4
-          }
-      }
-  });
-
-
-  // Product Quantity - pagina carrito
-  $('.quantity button').on('click', function () {
-      var button = $(this);
-      var oldValue = button.parent().parent().find('input').val();
-      if (button.hasClass('btn-plus')) {
-          var newVal = parseFloat(oldValue) + 1;
-      } else {
-          if (oldValue > 0) {
-              var newVal = parseFloat(oldValue) - 1;
-          } else {
-              newVal = 0;
-          }
-      }
-      button.parent().parent().find('input').val(newVal);
-  });
-
-  //javascript for navigation bar effect on scroll
-  window.addEventListener("scroll", function(){
-    var header = document.querySelector("header");
-    header.classList.toggle('down', window.scrollY > 0);
-
-
-  });
-
-  //javascript for responsive navigation sidebar menu
-  var menu = document.querySelector('.menu');
-  var menuBtn = document.querySelector('.menu-btn');
-  var closeBtn = document.querySelector('.close-btn');
-
- 
-
-  closeBtn.addEventListener("click", () => {
-    menu.classList.remove('active');
+    if ($(this).scrollTop() > 100) {
+      $('.back-to-top').fadeIn('slow');
+    } else {
+      $('.back-to-top').fadeOut('slow');
+    }
   });
   
+  $('.back-to-top').click(function () {
+    $('html, body').animate({ scrollTop: 0 }, 1500, 'easeInOutExpo');
+    return false;
+  });
+
+  // Carousel de proveedores
+  initCarousel('.vendor-carousel', {
+    loop: true,
+    margin: 29,
+    nav: false,
+    autoplay: true,
+    smartSpeed: SLIDE_SPEED,
+    responsive: {
+      0: { items: 2 },
+      576: { items: 3 },
+      768: { items: 4 },
+      992: { items: 5 },
+      1200: { items: 6 }
+    }
+  });
+
+  // Carousel relacionado
+  initCarousel('.related-carousel', {
+    loop: true,
+    margin: 29,
+    nav: false,
+    autoplay: true,
+    smartSpeed: SLIDE_SPEED,
+    responsive: {
+      0: { items: 1 },
+      576: { items: 2 },
+      768: { items: 3 },
+      992: { items: 4 }
+    }
+  });
+
+  // Cantidad de productos en el carrito
+  $('.quantity button').on('click', function () {
+    const button = $(this);
+    const input = button.closest('.quantity').find('input');
+    let oldValue = parseInt(input.val());
+
+    const newValue = button.text() === "+" ? oldValue + 1 : Math.max(oldValue - 1, 1);
+    input.val(newValue);
+  });
+
 })(jQuery);
-
-
-
-
-}(jQuery));
