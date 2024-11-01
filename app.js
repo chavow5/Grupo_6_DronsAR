@@ -9,9 +9,10 @@ const userDatasource = require('./services/userDatasource');
 
 const productApiRoutes = require('./routes/api/products'); // Rutas de API para productos
 const userApiRoutes = require('./routes/api/users'); // Rutas de API para usuarios
+const apiCategoryRoutes = require('./routes/api/categories');
 
 const categoryRoutes = require('./routes/categories');
-const apiCategoryRoutes = require('./routes/api/categories');
+
 
 // Middleware para analizar JSON
 app.use(express.json());
@@ -34,7 +35,6 @@ const authMiddleware = require('./middleware/authMiddleware');
 app.use('/api/products', productApiRoutes);
 app.use('/api/users', userApiRoutes);
 app.use('/api/categories', apiCategoryRoutes);
-
 
 // Configuración de sesiones y cookies
 app.use(session({

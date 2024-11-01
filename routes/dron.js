@@ -3,6 +3,7 @@ const router = express.Router();
 const dronController = require('../controllers/dron');
 const fileUpload = require('../services/fileUpload');
 
+
 // Rutas de productos
 router.get('/', dronController.getProductos); // Mostrar todos los productos
 router.get('/add', dronController.getAddForm); // Mostrar formulario para agregar producto
@@ -13,5 +14,7 @@ router.get('/editar/:id', dronController.getEditForm); // Mostrar formulario de 
 router.put('/editar/:id', fileUpload.single('image'), dronController.updateOne);
 
 router.post('/delete/:id', dronController.delete); // Cambiar de eliminarProducto a delete
+
+// Ruta para obtener el último producto
 
 module.exports = router;

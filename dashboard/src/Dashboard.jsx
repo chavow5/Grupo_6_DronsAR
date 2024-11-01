@@ -4,6 +4,8 @@ import TotalProducts from './components/TotalProducts';
 import LastCreatedProduct from './components/LastCreatedProduct';
 import CategoriesWithProducts from './components/CategoriesWithProducts';
 import TotalUsers from './components/TotalUsers';
+import TotalCategories from './components/TotalCategories';
+import ProductsList from './components/ProductsList';
 
 function Dashboard() {
   return (
@@ -13,6 +15,8 @@ function Dashboard() {
       <LastCreatedProduct />
       <CategoriesWithProducts />
       <TotalUsers />
+      <TotalCategories />
+      <ProductsList />
     </div>
   );
 }

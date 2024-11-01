@@ -16,6 +16,15 @@ export async function fetchLastCreatedProduct() {
   return response.json();
 }
 
+// Obtener todas las categorías
+export async function fetchCategories() {
+  const response = await fetch(`${API_BASE_URL}/categories`);
+  if (!response.ok) {
+    throw new Error(`Error ${response.status}`);
+  }
+  return response.json();
+}
+
 // Función para obtener el total de categorías
 export async function fetchCategoriesWithProducts() {
   const response = await fetch(`${API_BASE_URL}/categories`);

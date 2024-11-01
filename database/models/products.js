@@ -78,7 +78,8 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     tableName: 'products',
-  });
+  timestamps: true, // Esto habilita createdAt y updatedAt
+});
 
   // Definir la relación con Category
   Product.associate = models => {

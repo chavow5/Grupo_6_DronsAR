@@ -4,6 +4,7 @@ Grupo_6_DronsAR
 ├── app.js
 ├── bd.txt
 ├── controllers
+│   ├── categoryController.js
 │   ├── dron.js
 │   └── usersController.js
 ├── dashboard
@@ -43,6 +44,7 @@ Grupo_6_DronsAR
 │   ├── dronsar.sql
 │   ├── migrations
 │   ├── models
+│   │   ├── category.js
 │   │   ├── index.js
 │   │   ├── products.js
 │   │   └── user.js
@@ -54,8 +56,10 @@ Grupo_6_DronsAR
 ├── node_modules
 ├── routes
 │   ├── api
+│   │   ├── categories.js
 │   │   ├── products.js
 │   │   └── users.js
+│   ├── categories.js
 │   ├── dron.js
 │   └── users.js
 ├── services
@@ -73,6 +77,10 @@ Grupo_6_DronsAR
     │   ├── head.ejs
     │   ├── header.ejs
     │   └── script.ejs
+    ├── categories
+    │   ├── agregarCategoria.ejs
+    │   ├── editarCategoria.ejs
+    │   ├── index.ejs
     ├── products
     │   ├── agregarProducto.ejs
     │   ├── carrito-compra.ejs

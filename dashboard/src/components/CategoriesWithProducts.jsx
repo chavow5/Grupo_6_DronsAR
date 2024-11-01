@@ -1,19 +1,28 @@
+// dashboard/src/components/CategoriesWithProducts.jsx
 import React, { useEffect, useState } from 'react';
-import { fetchProducts } from '../apiService'; // Confirma que esté bien importado
+import { fetchCategoriesWithProducts } from '../apiService';
 
 function CategoriesWithProducts() {
-  const [products, setProducts] = useState([]);
+    const [categories, setCategories] = useState([]);
 
-  useEffect(() => {
-    fetchProducts().then(data => setProducts(data));
-  }, []);
+    useEffect(() => {
+        fetchCategoriesWithProducts()
+            .then(data => setCategories(data))
+            .catch(error => console.error("Error fetching categories with products:", error));
+    }, []);
 
-  return (
-    <div>
-      <h3>Products by Category</h3>
-      {/* Renderizado de productos */}
-    </div>
-  );
+    return (
+        <div>
+            <h2>Categorías con Total de Productos</h2>
+            <ul>
+                {categories.map(category => (
+                    <li key={category.id}>
+                        {category.name}: {category.totalProducts} productos
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
 }
 
 export default CategoriesWithProducts;
