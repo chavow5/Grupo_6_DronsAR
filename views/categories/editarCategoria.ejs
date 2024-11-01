@@ -1,0 +1,25 @@
+<%- include('../partials/head'); %>
+<body>
+    <%- include('../partials/header'); %>
+
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+        <div class="w-50">
+            <h1 class="text-center mb-4">Editar Categoría</h1>
+
+            <form action="/categories/edit/<%= category.id %>" method="POST" class="p-4 border rounded shadow">
+                <div class="form-group mb-3">
+                    <label for="nombre" class="form-label">Nombre de la Categoría:</label>
+                    <input type="text" id="nombre" name="nombre" value="<%= category.nombre %>" class="form-control" required>
+                </div>
+                
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                    <a href="/categories" class="btn btn-secondary">Volver a la lista de categorías</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <%- include('../partials/footer'); %>
+</body>
+</html>

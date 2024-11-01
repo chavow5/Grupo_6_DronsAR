@@ -9,16 +9,16 @@ router.get('/', categoryController.getCategories);
 // Mostrar formulario para agregar una categoría
 router.get('/add', categoryController.getAddForm);
 
-// Crear una nueva categoría
-router.post('/add', categoryController.create);
+// Crear una nueva categoría (Vista)
+router.post('/', categoryController.create);
 
 // Mostrar formulario para editar una categoría
 router.get('/edit/:id', categoryController.getEditForm);
 
-// Actualizar una categoría
+// Actualizar una categoría (Vista)
 router.post('/edit/:id', categoryController.update);
 
-// Eliminar una categoría
+// Eliminar una categoría (Vista)
 router.post('/delete/:id', categoryController.delete);
 
 module.exports = router;

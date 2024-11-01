@@ -4,18 +4,18 @@ const router = express.Router();
 const categoryController = require('../../controllers/categoryController');
 
 // Mostrar todas las categorías (API)
-router.get('/', categoryController.getCategories);
+router.get('/', categoryController.apiGetCategories);
 
 // Crear una nueva categoría (API)
-router.post('/', categoryController.create);
+router.post('/', categoryController.apiCreate);
 
 // Mostrar una categoría específica (API)
-router.get('/:id', categoryController.getEditForm);
+router.get('/:id', categoryController.apiGetCategory);
 
 // Actualizar una categoría (API)
-router.put('/:id', categoryController.update);
+router.put('/:id', categoryController.apiUpdate);
 
 // Eliminar una categoría (API)
-router.delete('/:id', categoryController.delete);
+router.delete('/:id', categoryController.apiDelete);
 
 module.exports = router;
