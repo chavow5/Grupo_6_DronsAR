@@ -1,5 +1,27 @@
 <%- include('../partials/head'); %>
+<style>
+  /* Asegúrate de que no haya CSS que oculte los íconos */
+  .product_count {
+      display: flex;
+      align-items: center;
+  }
 
+  .price-dc {
+    text-decoration: line-through;
+    color: red; /* Color del precio original */
+    margin-right: 10px; /* Espacio entre precios */
+}
+
+.price-sale {
+    color: green; /* Color del precio con descuento */
+    font-weight: bold; /* Para hacer que el precio con descuento se vea más destacado */
+}
+
+.discount {
+    color: #ff0000; /* Color del texto del descuento */
+    font-weight: bold; /* Para destacar el texto del descuento */
+}
+</style>
   <body>
     <%- include('../partials/header'); %>
 
@@ -51,54 +73,61 @@
             <div class="col-lg-5 col-xl-4">
               <div class="s_product_text">
                 <h3>
-                  <%= dron.nombre %>
+                    <%= dron.nombre %>
                 </h3>
-                <h2>$<%= dron.precio %>
+                <h2>
+                    <% if (dron.descuento > 0 && !isNaN(dron.descuento)) { %>
+                        <span class="price-dc">$<%= Number(dron.precio).toFixed(2) %></span>
+                        <span class="price-sale">$<%= (Number(dron.precio) - (Number(dron.precio) * (Number(dron.descuento) / 100))).toFixed(2) %></span>
+                    <% } else { %>
+                        $<%= Number(dron.precio).toFixed(2) %>
+                    <% } %>
                 </h2>
+                <% if (dron.descuento > 0 && !isNaN(dron.descuento)) { %>
+                    <p class="discount">Descuento: <%= dron.descuento %>%</p>
+                <% } %>
                 <ul class="list">
-                  <li>
-                    <a class="active" href="#">
-                      <span>Categoria:</span>
-                      <%= dron.category.nombre %>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#"> <span>Velocidad:</span>
-                      <%= dron.velocidad %>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#"> <span>Peso:</span>
-                      <%= dron.peso %>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#"> <span>Altura:</span>
-                      <%= dron.altura %>
-                    </a>
-                  </li>
+                    <li>
+                        <a class="active" href="#">
+                            <span>Categoria:</span>
+                            <%= dron.category.nombre %>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"> <span>Velocidad:</span>
+                            <%= dron.velocidad %>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"> <span>Peso:</span>
+                            <%= dron.peso %>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"> <span>Altura:</span>
+                            <%= dron.altura %>
+                        </a>
+                    </li>
                 </ul>
                 <p>
-                  <%= dron.descripcion %>
+                    <%= dron.descripcion %>
                 </p>
                 <div class="card_area d-flex justify-content-between align-items-center">
-                  <div class="product_count">
-                    <span class="inumber-decrement"> <i class="ti-minus"></i></span>
-                    <input class="input-number" type="text" value="1" min="0" max="10">
-                    <span class="number-increment"> <i class="ti-plus"></i></span>
-                  </div>
-                  <a href="#" class="btn_3">add to cart</a>
-                  <a href="#" class="like_us"> <i class="ti-heart"></i> </a>
+                    <div class="product_count">
+                        <span class="inumber-decrement"> <i class="fa fa-minus"></i></span>
+                        <input class="input-number" type="text" value="1" min="0" max="10">
+                        <span class="number-increment"> <i class="fa fa-plus"></i></span>
+                    </div>
+                    <a href="#" class="btn_3">agregar a carrito</a>
+                    <a href="#" class="like_us"> <i class="fa fa-heart"></i> </a>
                 </div>
                 <div class="card_area d-flex justify-content-between align-items-center">
-                  <a href="/productos/editar/<%= dron.id %>" class="btn btn-warning">Editar</a>
-                  <!-- Botón de eliminar -->
-                  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
-                    Eliminar
-                  </button>
-
+                    <a href="/productos/editar/<%= dron.id %>" class="btn btn-warning">Editar</a>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+                        Eliminar
+                    </button>
                 </div>
-              </div>
+            </div>
             </div>
           </div>
         </div>
@@ -278,7 +307,7 @@
           <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-12 ftco-animate">
               <div class="product">
-                <a href="#" class="img-prod"><img class="img-fluid" src="img/dronsar01.png" alt="Colorlib Template">
+                <a href="#" class="img-prod"><img class="img-fluid" src="/img/dronsar01.png" alt="Colorlib Template">
                   <span class="status">30%</span>
                   <div class="overlay"></div>
                 </a>
@@ -310,7 +339,7 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12 ftco-animate">
               <div class="product">
-                <a href="#" class="img-prod"><img class="img-fluid" src="img/dronsar02.png" alt="Colorlib Template">
+                <a href="#" class="img-prod"><img class="img-fluid" src="/img/dronsar02.png" alt="Colorlib Template">
                   <div class="overlay"></div>
                 </a>
                 <div class="text py-3 px-3">
@@ -340,7 +369,7 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12 ftco-animate">
               <div class="product">
-                <a href="#" class="img-prod"><img class="img-fluid" src="img/dronsar03.png" alt="Colorlib Template">
+                <a href="#" class="img-prod"><img class="img-fluid" src="/img/dronsar03.png" alt="Colorlib Template">
                   <div class="overlay"></div>
                 </a>
                 <div class="text py-3 px-3">
@@ -370,7 +399,7 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12 ftco-animate">
               <div class="product">
-                <a href="#" class="img-prod"><img class="img-fluid" src="img/dronsar04.png" alt="Colorlib Template">
+                <a href="#" class="img-prod"><img class="img-fluid" src="/img/dronsar04.png" alt="Colorlib Template">
                   <div class="overlay"></div>
                 </a>
                 <div class="text py-3 px-3">
@@ -408,10 +437,7 @@
       <%- include('../partials/footer'); %>
         <%- include('../partials/script'); %>
 
-          <!--script para botones de descripcion y especificaciones-->
-          <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-
+       
 
   </body>
 

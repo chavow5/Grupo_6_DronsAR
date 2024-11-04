@@ -91,11 +91,11 @@ app.get('/users/login', authMiddleware.guest, (req, res) => {
 });
 // Ruta para mostrar el perfil del usuario autenticado
 app.get('/users/perfil', authMiddleware.auth, (req, res) => {
-    res.render('users/perfil', { user: req.session.user });
+    res.render('users/perfil', { user: req.session.user }); // Aquí también
 });
 // Ruta página principal
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('index', { user: req.session.user }); // Agregamos el usuario aquí
 });
 // Ruta página de about
 app.get('/about', (req, res) => {

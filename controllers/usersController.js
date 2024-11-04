@@ -25,7 +25,7 @@ const usersController = {
         password: hashedPassword,
         profileImage: req.file ? req.file.filename : 'default.png' 
       });
-      res.redirect('/users/perfil'); 
+      res.redirect('/'); 
     } catch (error) {
       console.error('Error al registrar el usuario:', error);
       res.status(500).send('Error interno del servidor');
@@ -66,7 +66,7 @@ const usersController = {
   }
   
       // Redirigir a la página de perfil
-      res.redirect('/users/perfil');
+      res.redirect('/');
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
       res.status(500).send('Error interno del servidor');
@@ -84,7 +84,7 @@ const usersController = {
       res.clearCookie('userEmail');
   
       // Redirigir a la página de inicio o a donde desees
-      res.redirect('/login');
+      res.redirect('/');
     });
   },
 
