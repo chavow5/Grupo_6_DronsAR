@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
   const Mensaje = sequelize.define('Mensaje', {
     id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       primaryKey: true,
+      autoIncrement: true,
     },
     nombre: {
       type: DataTypes.STRING,
@@ -23,20 +23,20 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    createdAt: {
+    created_at: { // Cambiado a created_at
       type: DataTypes.DATE,
+      field: 'created_at', // Asegúrate de que este campo coincida con el de la base de datos
       defaultValue: DataTypes.NOW,
-      field: 'createdAt', // Usa el nombre en la base de datos
     },
-    updatedAt: {
+    updated_at: { // Cambiado a updated_at
       type: DataTypes.DATE,
-      field: 'updatedAt', // Añade este campo si deseas que se actualice automáticamente
-    }
+      field: 'updated_at', // Asegúrate de que este campo coincida con el de la base de datos
+      defaultValue: DataTypes.NOW,
+    },
   }, {
-    tableName: 'messages', // Nombre de la tabla
-    underscored: true, // Usa formato de nombre de columna subrayado
-    timestamps: true, // Habilita marcas de tiempo para createdAt y updatedAt
+    tableName: 'messages',
+    timestamps: true,
+    underscored: true, // Esto asegura que Sequelize use el formato snake_case
   });
-
   return Mensaje;
 };

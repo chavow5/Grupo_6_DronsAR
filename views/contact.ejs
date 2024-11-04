@@ -1,12 +1,12 @@
 <%- include('partials/head') %>
 <style>
     .text-justify {
-    text-align: justify;
-}
+        text-align: justify;
+    }
 
-.bg-custom {
-    background-color: #B1CCE0;
-}
+    .bg-custom {
+        background-color: #B1CCE0;
+    }
 </style>
 <body>
     <%- include('partials/header') %>
@@ -22,35 +22,30 @@
         </div>
     </div>
     <!-- Page Header End -->
-    <!-- Contact Start -->
+    
     <div class="container-fluid pt-5">
         <div class="text-center mb-4">
             <h2 class="section-title px-5"><span class="px-2">Contáctenos para cualquier consulta</span></h2>
         </div>
+
+       
+
         <div class="row px-xl-5">
             <div class="col-lg-7 mb-5 text-justify">
                 <div class="contact-form">
-                    <div id="success"></div>
-                    <form name="sentMessage" id="contactForm" novalidate="novalidate">
-                        <div class="control-group">
-                            <input type="text" class="form-control" id="name" placeholder="Tu Nombre"
-                                required="required" data-validation-required-message="Please enter your name" />
+                    <form name="sentMessage" id="contactForm" action="/contact" method="POST" novalidate="novalidate">                            <input type="text" class="form-control" name="nombre" id="name" placeholder="Tu Nombre" required="required" data-validation-required-message="Por favor, ingresa tu nombre" />
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="control-group">
-                            <input type="email" class="form-control" id="email" placeholder="Tú Email"
-                                required="required" data-validation-required-message="Please enter your email" />
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Tú Email" required="required" data-validation-required-message="Por favor, ingresa tu email" />
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="control-group">
-                            <input type="text" class="form-control" id="subject" placeholder="Asunto"
-                                required="required" data-validation-required-message="Please enter a subject" />
+                            <input type="text" class="form-control" name="asunto" id="subject" placeholder="Asunto" required="required" data-validation-required-message="Por favor, ingresa un asunto" />
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="control-group">
-                            <textarea class="form-control" rows="6" id="message" placeholder="Escribe aquí tu mensaje"
-                                required="required"
-                                data-validation-required-message="Please enter your message"></textarea>
+                            <textarea class="form-control" rows="6" name="mensaje" id="message" placeholder="Escribe aquí tu mensaje" required="required" data-validation-required-message="Por favor, ingresa tu mensaje"></textarea>
                             <p class="help-block text-danger"></p>
                         </div>
                         <div>
@@ -59,7 +54,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-lg-5 mb-5 text-center"> <!-- Cambiado text-justify por text-center -->
+            <div class="col-lg-5 mb-5 text-center">
                 <h5 class="font-weight-semi-bold mb-3">¡Estamos aquí para ayudarte!</h5>
                 <p>Si tienes alguna pregunta, comentario o inquietud, no dudes en ponerte en contacto con nosotros. Completa el formulario a continuación y nuestro equipo se comunicará contigo lo antes posible. Tu opinión es muy importante para nosotros y estamos comprometidos a brindarte la mejor atención. ¡Esperamos saber de ti pronto!</p>
                 <div class="d-flex flex-column mb-3">
@@ -68,12 +63,9 @@
                     <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@gmail.com</p>
                     <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>3804 12345678</p>
                 </div>
-                
             </div>
         </div>
     </div>
-    <!-- Contact End -->
     <%- include('partials/footer') %>
-    <%- include('partials/script') %>
 </body>
 </html>

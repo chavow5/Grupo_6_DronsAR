@@ -23,9 +23,10 @@ const usersController = {
         apellidos,
         email,
         password: hashedPassword,
-        profileImage: req.file ? req.file.filename : 'default.png' 
+        profileImage: req.file ? req.file.filename : 'default.png',
+        rol: 'user' // Asignar rol por defecto al crear usuario
       });
-      res.redirect('/'); 
+      res.redirect('/login');
     } catch (error) {
       console.error('Error al registrar el usuario:', error);
       res.status(500).send('Error interno del servidor');
@@ -56,14 +57,15 @@ const usersController = {
         apellidos: user.apellidos,
         email: user.email,
         profileImage: user.profileImage,
+        rol: user.rol // Guardar rol en la sesión
       };
   
       // Manejo de "Recordarme"
-  if (remember) {
-    res.cookie('userEmail', user.email, { maxAge: 1000 * 60 * 60 * 24 * 30, httpOnly: true }); // 30 días
-  } else {
-    res.clearCookie('userEmail'); // Asegúrate de limpiar la cookie si no se selecciona "Recordar"
-  }
+      if (remember) {
+        res.cookie('userEmail', user.email, { maxAge: 1000 * 60 * 60 * 24 * 30, httpOnly: true }); // 30 días
+      } else {
+        res.clearCookie('userEmail'); // Asegúrate de limpiar la cookie si no se selecciona "Recordar"
+      }
   
       // Redirigir a la página de perfil
       res.redirect('/');
@@ -88,9 +90,43 @@ const usersController = {
     });
   },
 
+  // Cambiar rol de usuario
+  changeRole: async (req, res) => {
+    try {
+      const { userId, newRole } = req.body;
 
-  //api
+      // Verificar si el usuario actual es administrador
+      if (req.session.user.rol !== 'admin') {
+        return res.status(403).json({ error: 'Acceso denegado' });
+      }
 
+      // Encontrar al usuario cuyo rol se va a cambiar
+      const user = await User.findByPk(userId);
+      if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
+
+      // Cambiar el rol del usuario
+      user.rol = newRole;
+      await user.save();
+
+      res.json({ message: 'Rol de usuario actualizado correctamente' });
+    } catch (error) {
+      console.error('Error al cambiar el rol de usuario:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  },
+
+  // Renderizar vista de gestión de roles
+  adminPanel: async (req, res) => {
+    try {
+      const users = await User.findAll(); // Obtener todos los usuarios para la vista
+      res.render('users/admin', { users });
+    } catch (error) {
+      console.error('Error al cargar la página de administración:', error);
+      res.status(500).send('Error interno del servidor');
+    }
+  },
+
+  // API para obtener todos los usuarios
   getAllUsers: async (req, res) => {
     try {
       const users = await User.findAll(); // Obtener todos los usuarios de la base de datos
@@ -123,7 +159,8 @@ const usersController = {
         id: crypto.randomUUID(), // Si usas ID manualmente, considera si es necesario
         ...req.body,
         password: hashedPassword,
-        profileImage: req.file ? req.file.filename : 'default.png'
+        profileImage: req.file ? req.file.filename : 'default.png',
+        rol: 'user' // Asignar rol por defecto al crear usuario
       });
       res.status(201).json(newUser);
     } catch (error) {
@@ -159,7 +196,5 @@ const usersController = {
   }
 
 };
-
-  
 
 module.exports = usersController;

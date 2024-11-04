@@ -13,6 +13,10 @@ const apiCategoryRoutes = require('./routes/api/categories');
 
 const categoryRoutes = require('./routes/categories');
 
+const contactRoutes = require('./routes/contact');
+
+
+
 
 // Middleware para analizar JSON
 app.use(express.json());
@@ -129,6 +133,8 @@ app.use('/users', usersRoutes);
 
 app.use('/categories', categoryRoutes);
 
+
+app.use('/', contactRoutes); // Asegúrate de que el prefijo sea el correcto
 
 //definicion del puerto
 const port = process.env.PORT ?? 3000;

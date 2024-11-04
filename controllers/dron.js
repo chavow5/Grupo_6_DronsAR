@@ -120,6 +120,15 @@ const dronController = {
     }
   },
 
+  detalle: async (req, res) => {
+    const dron = await obtenerDronPorId(req.params.id);
+    const usuario = req.session.usuario; // Asegúrate de que aquí se almacena el usuario logueado
+
+    res.render('products/detalle-producto', {
+        dron: dron,
+        usuario: usuario // Pasar el objeto del usuario
+    });
+},
 
   // Método para mostrar el formulario de edición
   // Método para mostrar el formulario de edición
