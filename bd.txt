@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-10-2024 a las 23:55:17
+-- Tiempo de generación: 06-11-2024 a las 00:02:01
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -64,6 +64,22 @@ INSERT INTO `categories` (`id`, `nombre`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `messages`
+--
+
+CREATE TABLE `messages` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `asunto` varchar(255) NOT NULL,
+  `mensaje` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `products`
 --
 
@@ -96,7 +112,8 @@ INSERT INTO `products` (`id`, `nombre`, `marca`, `modelo`, `descripcion`, `preci
 (1, 'dron1', 'marca1', 'modelo1', 'desc1', '1000.00', '500g', '1hora', 'camara 4k', 'tipo1', '500 mts', '500kxh', 'dron-15577c765d6570d7.png', '50.00', '2024-10-02 22:45:49', '2024-10-02 22:45:49', '2024-10-30 12:28:04', 1),
 (259, 'dron2', 'marca2', 'models2', 'desc2', '2000.00', '500g', '1hora', 'camara 4k', 'tipo1', '500 mts', '500kxh', 'dron-405d75661da1b855.png', '10.00', '2024-10-02 23:01:15', '2024-10-02 23:01:15', '2024-10-30 12:28:04', 2),
 (343, 'dron3', 'marca3', 'models3', 'desc3', '3000.00', '500g', '1hora', 'camara 4k', 'tipo1', '500 mts', '500kxh', 'dron-626190862c6af583.png', '5.00', '2024-10-02 23:01:57', '2024-10-02 23:01:57', '2024-10-30 12:28:04', 3),
-(344, 'dron4', 'marca4', 'models4', 'desc4', '4000.00', '500g', '1hora', 'camara 4k', 'tipo1', '500 mts', '500kxh', 'dron-62d3ef1c5c2385d4.png', '20.00', '2024-10-02 23:02:55', '2024-10-02 23:02:55', '2024-10-30 12:28:04', 4);
+(344, 'dron4', 'marca4', 'models4', 'desc4', '4000.00', '500g', '1hora', 'camara 4k', 'tipo1', '500 mts', '500kxh', 'dron-62d3ef1c5c2385d4.png', '20.00', '2024-10-02 23:02:55', '2024-10-02 23:02:55', '2024-10-31 22:57:11', 3),
+(6062, 'dron5', 'marca 5', 'model5', 'desc5', '1000.00', '500g', '1hora', 'camara 4k', 'tipo1', '500 mts', '500kxh', 'dron-94a17eb3af9cfed6.png', '10.00', '2024-11-05 14:55:21', '2024-11-05 14:55:21', '2024-11-05 14:55:57', 3);
 
 -- --------------------------------------------------------
 
@@ -112,17 +129,16 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `profileImage` varchar(255) DEFAULT NULL,
   `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updatedAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updatedAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `rol` varchar(20) NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `nombres`, `apellidos`, `email`, `password`, `profileImage`, `createdAt`, `updatedAt`) VALUES
-(423, 'Laura', 'Martínez', 'laura.martinez@example.com', 'segura123', 'default.png', '2024-10-29 14:58:36', '2024-10-29 14:58:36'),
-(424, 'Carlos', 'López', 'carlos.lopez@example.com', 'mypassword456', 'default.png', '2024-10-29 14:59:14', '2024-10-29 14:59:14'),
-(425, 'Ana', 'González', 'ana.gonzalez@example.com', 'contraseñaAna789', 'default.png', '2024-10-29 14:59:35', '2024-10-29 14:59:35');
+INSERT INTO `users` (`id`, `nombres`, `apellidos`, `email`, `password`, `profileImage`, `createdAt`, `updatedAt`, `rol`) VALUES
+(18, 'Leonardo', 'Garcia', 'davidleogarcia993@gmail.com', '$2a$10$rBRHAumYKWHFLq6R.tmbde64NJ45.x9qNn3Il8.2Or0jrSPbwkHBu', 'default.png', '2024-11-05 15:33:05', '2024-11-05 15:40:26', 'user');
 
 --
 -- Índices para tablas volcadas
@@ -140,6 +156,12 @@ ALTER TABLE `cart`
 -- Indices de la tabla `categories`
 --
 ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `messages`
+--
+ALTER TABLE `messages`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -170,7 +192,13 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT de la tabla `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de la tabla `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `products`
@@ -182,7 +210,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=427;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80001;
 
 --
 -- Restricciones para tablas volcadas
