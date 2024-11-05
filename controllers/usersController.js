@@ -129,11 +129,11 @@ const usersController = {
   // API para obtener todos los usuarios
   getAllUsers: async (req, res) => {
     try {
-      const users = await User.findAll(); // Obtener todos los usuarios de la base de datos
-      res.json(users); // Devolver todos los usuarios
+        const users = await User.findAll(); // Obtener todos los usuarios de la base de datos
+        res.json(users); // Devolver todos los usuarios
     } catch (error) {
-      console.error('Error al obtener usuarios:', error);
-      res.status(500).json({ error: 'Error interno del servidor' });
+        console.error('Error al obtener usuarios:', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
     }
   },
 
