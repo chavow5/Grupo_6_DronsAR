@@ -13,4 +13,7 @@ const express = require('express');
    // Eliminar un usuario por ID
    router.delete('/:id', usersController.deleteUser);
 
+   // Obtener el último usuario creado
+router.get('/users/ultimo', usersController.getLastUser);
+
    module.exports = router;

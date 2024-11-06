@@ -40,6 +40,7 @@ app.use('/api/products', productApiRoutes);
 app.use('/api/users', userApiRoutes);
 app.use('/api/categories', apiCategoryRoutes);
 
+
 // Configuración de sesiones y cookies
 app.use(session({
     secret: 'tu-secreto',

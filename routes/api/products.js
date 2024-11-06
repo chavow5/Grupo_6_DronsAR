@@ -18,6 +18,7 @@ router.delete('/:id', dronController.deleteProduct);
 // routes/api/products.js ultimo producto creado
 router.get('/products/latest', dronController.getLastProduct);
 
+router.get('/products/nombres', dronController.getProductNames);
 
 
 module.exports = router;

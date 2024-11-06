@@ -193,7 +193,22 @@ const usersController = {
       console.error('Error al eliminar el usuario:', error);
       res.status(500).json({ error: 'Error interno del servidor' });
     }
+  },
+
+
+  // Obtener el último usuario creado
+getLastUser: async (req, res) => {
+  try {
+      const lastUser = await User.findOne({
+          order: [['createdAt', 'DESC']] // Ordenar por fecha de creación en orden descendente
+      });
+      if (!lastUser) return res.status(404).json({ error: 'No se encontraron usuarios' });
+      res.json(lastUser);
+  } catch (error) {
+      console.error('Error al obtener el último usuario:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
   }
+}
 
 };
 

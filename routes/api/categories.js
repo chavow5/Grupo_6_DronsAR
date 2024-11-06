@@ -18,4 +18,7 @@ router.put('/:id', categoryController.apiUpdate);
 // Eliminar una categoría (API)
 router.delete('/:id', categoryController.apiDelete);
 
+// Nueva ruta para el panel de categorías con el total de productos
+router.get('/categories/panel', categoryController.getCategoriesWithProductCount);
+
 module.exports = router;

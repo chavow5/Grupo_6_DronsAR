@@ -1,4 +1,3 @@
-// dashboard/src/apiService.js
 
 // dashboard/src/apiService.js
 
@@ -16,20 +15,9 @@ export async function fetchLastCreatedProduct() {
   return response.json();
 }
 
-// Obtener todas las categorías
-export async function fetchCategories() {
-  const response = await fetch(`${API_BASE_URL}/categories`);
-  if (!response.ok) {
-    throw new Error(`Error ${response.status}`);
-  }
-  return response.json();
-}
 
-// Función para obtener el total de categorías
-export async function fetchCategoriesWithProducts() {
-  const response = await fetch(`${API_BASE_URL}/categories`);
-  return response.json();
-}
+
+
 
 // Función para obtener la lista de productos
 export async function fetchProductsList() {
@@ -38,6 +26,25 @@ export async function fetchProductsList() {
 }
 
 
+
+
+// Función para obtener el total de categorías
+export async function fetchCategoriesWithProducts() {
+  const response = await fetch(`${API_BASE_URL}/categories`);
+  return response.json();
+}
+
+
+// funciona todo abajo
+
+// Obtener todas las categorías
+export async function fetchCategories() {
+  const response = await fetch(`${API_BASE_URL}/categories`);
+  if (!response.ok) {
+    throw new Error(`Error ${response.status}`);
+  }
+  return response.json();
+}
 
 // Función para obtener la lista de productos y contar el total
 export async function fetchProducts() {

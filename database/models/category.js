@@ -27,11 +27,11 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
   });
 
-  // Establecer la relación entre categorías y productos
+  // Relación con Product
   Category.associate = (models) => {
     Category.hasMany(models.Product, {
-      foreignKey: 'category_id',  // la clave foránea en la tabla `products`
-      as: 'products',             // alias para la relación
+      foreignKey: 'category_id',
+      as: 'products',
     });
   };
 

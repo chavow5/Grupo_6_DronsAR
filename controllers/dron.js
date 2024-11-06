@@ -333,25 +333,40 @@ getEditForm: async (req, res) => {
     }
   },
 
-// Función para obtener el último producto creado
-getLastProduct: async (req, res) => {
-  try {
-    const lastProduct = await Product.findOne({
-      order: [['createdAt', 'DESC']],
-  });
-
-      console.log('Último producto:', lastProduct); // Para verificar qué se devuelve
-
+  getLastProduct: async (req, res) => {
+    try {
+      // Buscar el último producto creado según la fecha de creación
+      const lastProduct = await Product.findOne({
+        order: [['createdAt', 'DESC']],
+      });
+  
       if (!lastProduct) {
-          return res.status(404).json({ message: 'No se encontró ningún producto' });
+        return res.status(404).json({ error: 'No hay productos disponibles' });
       }
-
-      res.status(200).json(lastProduct);
-  } catch (error) {
+  
+      // Devolver el último producto en formato JSON
+      res.json(lastProduct);
+    } catch (error) {
       console.error('Error al obtener el último producto:', error);
-      res.status(500).json({ message: 'Error interno del servidor' });
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  },
+
+
+  getProductNames: async (req, res) => {
+    try {
+      // Obtener solo los nombres de los productos
+      const products = await Product.findAll({
+        attributes: ['nombre'], // Seleccionamos solo el atributo 'nombre'
+      });
+
+      // Enviar la respuesta en formato JSON
+      res.json(products);
+    } catch (error) {
+      console.error('Error al obtener los productos:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
   }
-}
 
   
 };

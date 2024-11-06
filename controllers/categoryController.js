@@ -1,7 +1,7 @@
 'use strict';
 
 const db = require('../database/models');
-const Category = db.Category;
+const { Category, Product } = db;  // Importa ambos modelos, Category y Product
 
 const categoryController = {
   // Mostrar todas las categorías para vistas
@@ -151,6 +151,34 @@ const categoryController = {
       res.json({ message: 'Categoría eliminada con éxito' });
     } catch (error) {
       console.error('Error al eliminar categoría (API):', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  },
+
+
+   // Panel de categorías con el total de productos
+   getCategoriesWithProductCount: async (req, res) => {
+    try {
+      const categories = await Category.findAll({
+        attributes: [
+          'id', 
+          'nombre',
+          [db.Sequelize.fn('COUNT', db.Sequelize.col('products.id')), 'productCount']
+        ],
+        include: [
+          {
+            model: Product,
+            as: 'products',
+            attributes: []
+          }
+        ],
+        group: ['Category.id']
+      });
+      
+      // Enviar la respuesta en formato JSON
+      res.json(categories);
+    } catch (error) {
+      console.error('Error al obtener el panel de categorías:', error);
       res.status(500).json({ error: 'Error interno del servidor' });
     }
   }
