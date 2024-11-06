@@ -1,75 +1,224 @@
--- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1    Database: dronsar
--- ------------------------------------------------------
--- Server version	5.5.5-10.4.28-MariaDB
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 06-11-2024 a las 01:48:02
+-- Versión del servidor: 10.4.27-MariaDB
+-- Versión de PHP: 8.2.0
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Dumping data for table `cart`
+-- Base de datos: `dronsar`
 --
 
-LOCK TABLES `cart` WRITE;
-/*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cart` ENABLE KEYS */;
-UNLOCK TABLES;
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `categories`
+-- Estructura de tabla para la tabla `cart`
 --
 
-LOCK TABLES `categories` WRITE;
-/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (1,'Juegos y Diversión','2024-10-30 15:33:07','2024-10-30 15:33:07'),(2,'Fotografía Profesional','2024-10-30 15:33:07','2024-10-30 15:33:07'),(3,'Carreras','2024-10-30 15:33:07','2024-10-30 15:33:07'),(4,'Agrícolas','2024-10-30 15:33:07','2024-10-30 15:33:07'),(5,'Larga Distancia','2024-10-30 15:33:07','2024-10-30 15:33:07'),(6,'Accesorios','2024-10-30 15:33:07','2024-10-30 15:33:07');
-/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
-UNLOCK TABLES;
+CREATE TABLE `cart` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `messages`
+-- Estructura de tabla para la tabla `categories`
 --
 
-LOCK TABLES `messages` WRITE;
-/*!40000 ALTER TABLE `messages` DISABLE KEYS */;
-/*!40000 ALTER TABLE `messages` ENABLE KEYS */;
-UNLOCK TABLES;
+CREATE TABLE `categories` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `products`
+-- Volcado de datos para la tabla `categories`
 --
 
-LOCK TABLES `products` WRITE;
-/*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,'dron1','marca1','modelo1','desc1',1000.00,'500g','1hora','camara 4k','tipo1','500 mts','500kxh','dron-15577c765d6570d7.png',50.00,'2024-10-02 22:45:49','2024-10-02 22:45:49','2024-10-30 12:28:04',1),(259,'dron2','marca2','models2','desc2',2000.00,'500g','1hora','camara 4k','tipo1','500 mts','500kxh','dron-405d75661da1b855.png',10.00,'2024-10-02 23:01:15','2024-10-02 23:01:15','2024-10-30 12:28:04',2),(343,'dron3','marca3','models3','desc3',3000.00,'500g','1hora','camara 4k','tipo1','500 mts','500kxh','dron-626190862c6af583.png',5.00,'2024-10-02 23:01:57','2024-10-02 23:01:57','2024-10-30 12:28:04',3),(344,'dron4','marca4','models4','desc4',4000.00,'500g','1hora','camara 4k','tipo1','500 mts','500kxh','dron-62d3ef1c5c2385d4.png',20.00,'2024-10-02 23:02:55','2024-10-02 23:02:55','2024-10-31 22:57:11',3),(6062,'dron5','marca 5','model5','desc5',1000.00,'500g','1hora','camara 4k','tipo1','500 mts','500kxh','dron-94a17eb3af9cfed6.png',10.00,'2024-11-05 14:55:21','2024-11-05 14:55:21','2024-11-05 14:55:57',3);
-/*!40000 ALTER TABLE `products` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `categories` (`id`, `nombre`, `created_at`, `updated_at`) VALUES
+(1, 'Juegos y Diversión', '2024-10-30 15:33:07', '2024-10-30 15:33:07'),
+(2, 'Fotografía Profesional', '2024-10-30 15:33:07', '2024-10-30 15:33:07'),
+(3, 'Carreras', '2024-10-30 15:33:07', '2024-10-30 15:33:07'),
+(4, 'Agrícolas', '2024-10-30 15:33:07', '2024-10-30 15:33:07'),
+(5, 'Larga Distancia', '2024-10-30 15:33:07', '2024-10-30 15:33:07'),
+(6, 'Accesorios', '2024-10-30 15:33:07', '2024-10-30 15:33:07');
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `users`
+-- Estructura de tabla para la tabla `messages`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (18,'Leonardo','Garcia','davidleogarcia993@gmail.com','$2a$10$rBRHAumYKWHFLq6R.tmbde64NJ45.x9qNn3Il8.2Or0jrSPbwkHBu','default.png','2024-11-05 15:33:05','2024-11-05 15:40:26','user');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+CREATE TABLE `messages` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `asunto` varchar(255) NOT NULL,
+  `mensaje` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `products`
+--
+
+CREATE TABLE `products` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `marca` varchar(100) NOT NULL,
+  `modelo` varchar(100) NOT NULL,
+  `descripcion` text NOT NULL,
+  `precio` decimal(10,2) NOT NULL,
+  `peso` varchar(50) NOT NULL,
+  `duracionBateria` varchar(50) NOT NULL,
+  `camara` varchar(50) NOT NULL,
+  `tipoSensores` varchar(100) NOT NULL,
+  `altura` varchar(50) NOT NULL,
+  `velocidad` varchar(50) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `descuento` decimal(5,2) DEFAULT 0.00,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `createdAt` datetime DEFAULT current_timestamp(),
+  `updatedAt` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `category_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `nombres` varchar(100) NOT NULL,
+  `apellidos` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `profileImage` varchar(255) DEFAULT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updatedAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `rol` varchar(20) NOT NULL DEFAULT 'user'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`id`, `nombres`, `apellidos`, `email`, `password`, `profileImage`, `createdAt`, `updatedAt`, `rol`) VALUES
+(18, 'Leonardo', 'Garcia', 'davidleogarcia993@gmail.com', '$2a$10$rBRHAumYKWHFLq6R.tmbde64NJ45.x9qNn3Il8.2Or0jrSPbwkHBu', 'default.png', '2024-11-05 15:33:05', '2024-11-05 15:40:26', 'user');
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
+-- Indices de la tabla `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_category` (`category_id`);
+
+--
+-- Indices de la tabla `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de la tabla `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78694;
+
+--
+-- AUTO_INCREMENT de la tabla `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80001;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `cart`
+--
+ALTER TABLE `cart`
+  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `fk_category` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2024-11-05 20:17:07
