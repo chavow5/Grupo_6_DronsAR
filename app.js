@@ -13,6 +13,9 @@ const apiCategoryRoutes = require('./routes/api/categories');
 
 const categoryRoutes = require('./routes/categories');
 
+// Importa el controlador de contacto
+const contactController = require('./controllers/contactController');
+
 const contactRoutes = require('./routes/contact');
 
 
@@ -72,7 +75,7 @@ app.use(async (req, res, next) => {
 app.use((req, res, next) => {
     res.locals.user = req.session.user || null;
     next();
-});
+  });
 
 app.use(authMiddleware.rememberUser); // Aplicar el middleware globalmente
 
@@ -136,6 +139,9 @@ app.use('/categories', categoryRoutes);
 
 
 app.use('/', contactRoutes); // Asegúrate de que el prefijo sea el correcto
+
+// Ruta página de confirmación de mensaje enviado (confirmación de éxito)
+app.get('/contact/confirmacion', contactController.mostrarConfirmacion);
 
 //definicion del puerto
 const port = process.env.PORT ?? 3000;

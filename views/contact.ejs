@@ -24,27 +24,34 @@
     <!-- Page Header End -->
     
     <div class="container-fluid pt-5">
-        <div class="text-center mb-4">
-            <h2 class="section-title px-5"><span class="px-2">Contáctenos para cualquier consulta</span></h2>
+        <!-- Título centrado -->
+        <div class="row">
+            <div class="col-12 text-center mb-4">
+                <h2 class="section-title px-5">
+                    <span class="px-2">Contáctenos para cualquier consulta</span>
+                </h2>
+            </div>
         </div>
-
-       
-
+    
+        <!-- Sección de contenido -->
         <div class="row px-xl-5">
-            <div class="col-lg-7 mb-5 text-justify">
+            <!-- Columna del formulario -->
+            <div class="col-lg-7 mb-5">
                 <div class="contact-form">
-                    <form name="sentMessage" id="contactForm" action="/contact" method="POST" novalidate="novalidate">                            <input type="text" class="form-control" name="nombre" id="name" placeholder="Tu Nombre" required="required" data-validation-required-message="Por favor, ingresa tu nombre" />
+                    <form name="sentMessage" id="contactForm" action="/contact" method="POST" novalidate="novalidate">
+                        <div class="control-group mb-3">
+                            <input type="text" class="form-control" name="nombre" id="name" placeholder="Tu Nombre" required="required" data-validation-required-message="Por favor, ingresa tu nombre" />
                             <p class="help-block text-danger"></p>
                         </div>
-                        <div class="control-group">
+                        <div class="control-group mb-3">
                             <input type="email" class="form-control" name="email" id="email" placeholder="Tú Email" required="required" data-validation-required-message="Por favor, ingresa tu email" />
                             <p class="help-block text-danger"></p>
                         </div>
-                        <div class="control-group">
+                        <div class="control-group mb-3">
                             <input type="text" class="form-control" name="asunto" id="subject" placeholder="Asunto" required="required" data-validation-required-message="Por favor, ingresa un asunto" />
                             <p class="help-block text-danger"></p>
                         </div>
-                        <div class="control-group">
+                        <div class="control-group mb-3">
                             <textarea class="form-control" rows="6" name="mensaje" id="message" placeholder="Escribe aquí tu mensaje" required="required" data-validation-required-message="Por favor, ingresa tu mensaje"></textarea>
                             <p class="help-block text-danger"></p>
                         </div>
@@ -54,6 +61,9 @@
                     </form>
                 </div>
             </div>
+            
+    
+            <!-- Columna de información -->
             <div class="col-lg-5 mb-5 text-center">
                 <h5 class="font-weight-semi-bold mb-3">¡Estamos aquí para ayudarte!</h5>
                 <p>Si tienes alguna pregunta, comentario o inquietud, no dudes en ponerte en contacto con nosotros. Completa el formulario a continuación y nuestro equipo se comunicará contigo lo antes posible. Tu opinión es muy importante para nosotros y estamos comprometidos a brindarte la mejor atención. ¡Esperamos saber de ti pronto!</p>
@@ -66,6 +76,66 @@
             </div>
         </div>
     </div>
+    
+    </div>
     <%- include('partials/footer') %>
+    <script>
+        // Función para validar el formulario antes de enviarlo
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            // Prevenir el envío si hay campos vacíos
+            let isValid = true;
+            
+            // Obtener los campos
+            const name = document.getElementById("name");
+            const email = document.getElementById("email");
+            const subject = document.getElementById("subject");
+            const message = document.getElementById("message");
+            
+            // Limpiar los mensajes de error previos
+            const errorMessages = document.querySelectorAll(".help-block");
+            errorMessages.forEach(function(msg) {
+                msg.textContent = '';
+            });
+    
+            // Validar nombre
+            if (name.value.trim() === "") {
+                isValid = false;
+                document.querySelector('#name').nextElementSibling.textContent = "Por favor, ingresa tu nombre";
+            }
+    
+            // Validar email
+            if (email.value.trim() === "") {
+                isValid = false;
+                document.querySelector('#email').nextElementSibling.textContent = "Por favor, ingresa tu email";
+            } else if (!validateEmail(email.value)) {
+                isValid = false;
+                document.querySelector('#email').nextElementSibling.textContent = "Por favor, ingresa un email válido";
+            }
+    
+            // Validar asunto
+            if (subject.value.trim() === "") {
+                isValid = false;
+                document.querySelector('#subject').nextElementSibling.textContent = "Por favor, ingresa un asunto";
+            }
+    
+            // Validar mensaje
+            if (message.value.trim() === "") {
+                isValid = false;
+                document.querySelector('#message').nextElementSibling.textContent = "Por favor, ingresa tu mensaje";
+            }
+    
+            // Si el formulario no es válido, evitar su envío
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    
+        // Función para validar el formato del email
+        function validateEmail(email) {
+            const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            return regex.test(email);
+        }
+    </script>
+    
 </body>
 </html>

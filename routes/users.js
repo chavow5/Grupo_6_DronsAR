@@ -31,11 +31,5 @@ router.get('/perfil', authMiddleware.auth, (req, res) => {
 });
 
 
-// Ruta para el panel de administración
-router.get('/admin', authMiddleware.isAdmin, usersController.adminPanel);
-// Ruta para cambiar el rol de un usuario (solo administradores)
-router.post('/change-role', authMiddleware.isAdmin, usersController.changeRole);
-
-
 
 module.exports = router;

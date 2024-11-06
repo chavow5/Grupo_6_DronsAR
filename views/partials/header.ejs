@@ -16,7 +16,9 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="productosDropdown">
                     <a class="dropdown-item" href="/productos">Todos los productos</a>
-                    <a class="dropdown-item" href="/productos/add">Crear un producto</a>
+                    <% if (user && user.rol === 'admin') { %>
+                        <a class="dropdown-item" href="/productos/add">Crear un producto</a>
+                    <% } %>
                 </div>
             </li>
             <li class="nav-item">

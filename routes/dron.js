@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const dronController = require('../controllers/dron');
 const fileUpload = require('../services/fileUpload');
+const { isAdmin } = require('../middleware/authMiddleware');
 
 
 // Rutas de productos
@@ -10,10 +11,11 @@ router.get('/add', dronController.getAddForm); // Mostrar formulario para agrega
 router.post('/agregar', fileUpload.single('image'), dronController.create); // Cambiar de createOne a create
 router.get('/:id', dronController.getProductoById); // Mostrar detalles de un producto
 
-router.get('/editar/:id', dronController.getEditForm); // Mostrar formulario de edición
-router.put('/editar/:id', fileUpload.single('image'), dronController.updateOne);
+// Rutas de edición y eliminación (solo admin)
+router.get('/editar/:id', isAdmin, dronController.getEditForm); // Mostrar formulario de edición
+router.put('/editar/:id', isAdmin, fileUpload.single('image'), dronController.updateOne); // Editar producto
+router.post('/delete/:id', isAdmin, dronController.delete); // Eliminar producto
 
-router.post('/delete/:id', dronController.delete); // Cambiar de eliminarProducto a delete
 
 // Ruta para obtener el último producto
 

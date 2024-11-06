@@ -5,6 +5,7 @@ Grupo_6_DronsAR
 ├── bd.txt
 ├── controllers
 │   ├── categoryController.js
+│   ├── contactController.js
 │   ├── dron.js
 │   └── usersController.js
 ├── dashboard
@@ -46,6 +47,7 @@ Grupo_6_DronsAR
 │   ├── models
 │   │   ├── category.js
 │   │   ├── index.js
+│   │   ├── message.js
 │   │   ├── products.js
 │   │   └── user.js
 │   └── seeders
@@ -60,6 +62,7 @@ Grupo_6_DronsAR
 │   │   ├── products.js
 │   │   └── users.js
 │   ├── categories.js
+│   ├── contact.js
 │   ├── dron.js
 │   └── users.js
 ├── services
@@ -88,6 +91,7 @@ Grupo_6_DronsAR
     │   ├── editarProducto.ejs
     │   └── productos.ejs
     └── users
+        ├── admin.ejs
         ├── login.ejs
         ├── perfil.ejs
         └── registro.ejs
