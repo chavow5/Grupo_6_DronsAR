@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-11-2024 a las 01:48:02
+-- Tiempo de generación: 06-11-2024 a las 15:40:35
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -127,7 +127,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nombres`, `apellidos`, `email`, `password`, `profileImage`, `createdAt`, `updatedAt`, `rol`) VALUES
-(18, 'Leonardo', 'Garcia', 'davidleogarcia993@gmail.com', '$2a$10$rBRHAumYKWHFLq6R.tmbde64NJ45.x9qNn3Il8.2Or0jrSPbwkHBu', 'default.png', '2024-11-05 15:33:05', '2024-11-05 15:40:26', 'user');
+(18, 'Leonardo', 'Garcia', 'davidleogarcia993@gmail.com', '$2a$10$rBRHAumYKWHFLq6R.tmbde64NJ45.x9qNn3Il8.2Or0jrSPbwkHBu', 'default.png', '2024-11-05 15:33:05', '2024-11-06 13:12:47', 'admin');
 
 --
 -- Índices para tablas volcadas
@@ -187,13 +187,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT de la tabla `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78694;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=970000001;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
