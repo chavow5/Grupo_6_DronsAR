@@ -1,45 +1,53 @@
-// dashboard/src/components/LastCreatedProduct.jsx
-
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { fetchLastCreatedProduct } from '../apiService';  // Importar la función fetchLastCreatedProduct
 
 const LastCreatedProduct = () => {
-  const [lastProduct, setLastProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [lastProduct, setLastProduct] = useState(null);  // Estado para el último producto
+  const [loading, setLoading] = useState(true);  // Estado para la carga
+  const [error, setError] = useState(null);  // Estado para los errores
 
+  // Efecto para obtener el último producto
   useEffect(() => {
-    const fetchLastProduct = async () => {
+    const fetchProduct = async () => {
       try {
-        const response = await axios.get('/api/products/products/latest'); // Asegúrate de que esta ruta sea correcta
-        setLastProduct(response.data);
+        const data = await fetchLastCreatedProduct();  // Llamar la función de apiService
+        setLastProduct(data);  // Guardar el último producto en el estado
       } catch (err) {
-        console.error('Error al obtener el último producto:', err);
+        console.error('Error al obtener el último producto:', err);  // Manejo de error
         setError('No se pudo cargar el último producto.');
       } finally {
-        setLoading(false);
+        setLoading(false);  // Termina el estado de carga
       }
     };
 
-    fetchLastProduct();
-  }, []);
+    fetchProduct();  // Llamar a la función fetchProduct al cargar el componente
+  }, []);  // Solo se ejecuta una vez al montar el componente
 
   if (loading) {
-    return <div>Cargando...</div>;
+    return <div>Cargando...</div>;  // Muestra cargando mientras se obtiene el producto
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div>{error}</div>;  // Muestra el error si hay uno
   }
 
   if (!lastProduct) {
-    return <div>No hay productos disponibles.</div>;
+    return <div>No hay productos disponibles.</div>;  // Si no se encuentra el producto
   }
 
   return (
     <div>
       <h2>Último Producto Creado</h2>
-      <h3>{lastProduct.nombre}</h3> {/* Solo muestra el nombre del último producto */}
+      <h3>{lastProduct.nombre}</h3> {/* Muestra el nombre del último producto */}
+      <p><strong>Marca:</strong> {lastProduct.marca}</p>
+      <p><strong>Modelo:</strong> {lastProduct.modelo}</p>
+      <p><strong>Descripción:</strong> {lastProduct.descripcion}</p>
+      <p><strong>Precio:</strong> ${lastProduct.precio}</p>
+      <img 
+        src={`/img/productsImg/${lastProduct.image}`} 
+        alt={lastProduct.nombre} 
+        style={{ width: '200px', height: 'auto' }} 
+      />
     </div>
   );
 };

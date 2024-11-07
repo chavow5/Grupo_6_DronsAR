@@ -11,12 +11,9 @@ export async function fetchTotals() {
 
 // Función para obtener el último producto creado
 export async function fetchLastCreatedProduct() {
-  const response = await fetch(`${API_BASE_URL}/products/latest`);
+  const response = await fetch(`${API_BASE_URL}/products/products/latest`);
   return response.json();
 }
-
-
-
 
 
 // Función para obtener la lista de productos
@@ -26,11 +23,9 @@ export async function fetchProductsList() {
 }
 
 
-
-
 // Función para obtener el total de categorías
 export async function fetchCategoriesWithProducts() {
-  const response = await fetch(`${API_BASE_URL}/categories`);
+  const response = await fetch(`${API_BASE_URL}/categories/categories/panel`);
   return response.json();
 }
 
