@@ -4,18 +4,34 @@ const db = require('../database/models');
 const User = db.User;
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
+const { validationResult } = require('express-validator');
 
 const usersController = {
   register: async (req, res) => {
+    // Capturar errores de validación
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      // Mapea los errores para mostrarlos en la vista
+      const errorsMapped = errors.mapped();
+      return res.status(400).render('users/registro', { 
+        errors: errorsMapped,
+        oldData: req.body
+      });
+    }
+
+    const { nombres, apellidos, email, password } = req.body;
+
     try {
-      const { nombres, apellidos, email, password } = req.body;
-      if (!password) {
-        throw new Error('La contraseña es requerida');
-      }
+      // Verificar si el email ya existe
       const emailExists = await User.findOne({ where: { email } });
       if (emailExists) {
-        return res.status(400).send('El email ya está registrado');
+        return res.status(400).render('users/registro', {
+          errors: { email: { msg: 'El email ya está registrado' } },
+          oldData: req.body
+        });
       }
+
+      // Encriptar la contraseña y crear el usuario
       const hashedPassword = bcrypt.hashSync(password, 10);
       const newUser = await User.create({
         id: crypto.randomUUID(),
@@ -24,52 +40,67 @@ const usersController = {
         email,
         password: hashedPassword,
         profileImage: req.file ? req.file.filename : 'default.png',
-        rol: 'user' // Asignar rol por defecto al crear usuario
+        rol: 'user'
       });
+
       res.redirect('/login');
     } catch (error) {
       console.error('Error al registrar el usuario:', error);
-      res.status(500).send('Error interno del servidor');
+      res.status(500).render('users/registro', {
+        errors: { general: { msg: 'Hubo un problema al registrar el usuario. Por favor intenta nuevamente.' } },
+        oldData: req.body
+      });
     }
   },
-  login: async (req, res) => {
-    try {
-      const { email, password, remember } = req.body;
 
-      // Buscar el usuario por el email
+  login: async (req, res) => {
+    // Capturar errores de validación
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).render('users/login', { 
+        errors: errors.mapped(),
+        oldData: req.body 
+      });
+    }
+
+    const { email, password, remember } = req.body;
+
+    try {
       const user = await User.findOne({ where: { email } });
 
-      // Verificar si el usuario existe y la contraseña es correcta
       if (!user || !(await bcrypt.compare(password, user.password))) {
-        return res.status(400).send('El email o la contraseña son incorrectos.');
+        return res.status(400).render('users/login', {
+          errors: { general: { msg: 'El email o la contraseña son incorrectos.' } },
+          oldData: req.body
+        });
       }
 
-      // Guardar información del usuario en la sesión
       req.session.user = {
         id: user.id,
         nombres: user.nombres,
         apellidos: user.apellidos,
         email: user.email,
         profileImage: user.profileImage,
-        rol: user.rol // Guardar rol en la sesión
+        rol: user.rol
       };
 
-      // Manejo de "Recordarme"
       if (remember) {
         res.cookie('userEmail', user.email, {
-          maxAge: 1000 * 60 * 60 * 24 * 30, // 30 días
+          maxAge: 1000 * 60 * 60 * 24 * 30, 
           httpOnly: true,
-          secure: process.env.NODE_ENV === 'production' // Solo en producción
+          secure: process.env.NODE_ENV === 'production'
         });
       } else {
-        res.clearCookie('userEmail'); // Limpia la cookie si no se selecciona "Recordar"
+        res.clearCookie('userEmail');
       }
 
-      // Redirigir a la página de perfil
       res.redirect('/');
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
-      res.status(500).send('Error interno del servidor');
+      res.status(500).render('users/login', {
+        errors: { general: { msg: 'Hubo un problema al iniciar sesión. Intenta nuevamente.' } },
+        oldData: req.body
+      });
     }
   },
 

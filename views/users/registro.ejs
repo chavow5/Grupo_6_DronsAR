@@ -52,42 +52,46 @@
             </div>
             <h1>Bienvenido</h1>
             <p>¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a></p>
-            <form action="/users/register" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
-                <div class="input-group">
-                    <label for="nombres">Nombres:</label>
-                    <input type="text" id="nombres" name="nombres" placeholder="Nombres" required autocomplete="off">
-                    <div class="error-message" id="error-nombres"></div>
+            <form name="registrationForm" id="registrationForm" action="/users/register" method="POST" enctype="multipart/form-data" novalidate="novalidate">
+                <div class="control-group mb-3">
+                    <input type="text" class="form-control" name="nombres" id="name" placeholder="Tu Nombre" required="required" data-validation-required-message="Por favor, ingresa tu nombre" />
+                    <% if (typeof errors !== 'undefined' && errors.nombres) { %>
+                        <p class="help-block text-danger"><%= errors.nombres.msg %></p>
+                      <% } %>
                 </div>
-                <div class="input-group">
-                    <label for="apellidos">Apellidos:</label>
-                    <input type="text" id="apellidos" name="apellidos" placeholder="Apellidos" required autocomplete="off">
-                    <div class="error-message" id="error-apellidos"></div>
+                <div class="control-group mb-3">
+                    <input type="text" class="form-control" name="apellidos" id="surname" placeholder="Tu Apellido" required="required" data-validation-required-message="Por favor, ingresa tu apellido" />
+                    <% if (typeof errors !== 'undefined' && errors.apellidos) { %>
+                        <p class="help-block text-danger"><%= errors.apellidos.msg %></p>
+                    <% } %>
                 </div>
-                <div class="input-group">
-                    <label for="email">Correo electrónico:</label>
-                    <input type="email" id="email" name="email" placeholder="Email" required autocomplete="off">
-                    <div class="error-message" id="error-email"></div>
+                <div class="control-group mb-3">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Tú Email" required="required" data-validation-required-message="Por favor, ingresa tu email" />
+                    <% if (typeof errors !== 'undefined' && errors.email) { %>
+                        <p class="help-block text-danger"><%= errors.email.msg %></p>
+                    <% } %>
                 </div>
-                <div class="input-group">
-                    <label for="password">Contraseña:</label>
-                    <input type="password" id="password" name="password" placeholder="Password" required>
-                    <p>La contraseña debe tener al menos 8 caracteres</p>
-                    <div class="error-message" id="error-password"></div>
+                <div class="control-group mb-3">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required="required" data-validation-required-message="Por favor, ingresa una contraseña" />
+                    <% if (typeof errors !== 'undefined' && errors.password) { %>
+                        <p class="help-block text-danger"><%= errors.password.msg %></p>
+                    <% } %>
                 </div>
-                <div class="input-group">
-                    <label for="confirm-password">Confirmar Contraseña:</label>
-                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirmar Contraseña" required autocomplete="off">
-                    <div class="error-message" id="error-confirm-password"></div>
+                <div class="control-group mb-3">
+                    <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirmar Contraseña" required="required" data-validation-required-message="Por favor, confirma tu contraseña" />
+                    <% if (typeof errors !== 'undefined' && errors.confirmPassword) { %>
+                        <p class="help-block text-danger"><%= errors.confirmPassword.msg %></p>
+                    <% } %>
                 </div>
-                <div class="input-group">
-                    <label for="profileImage">Imagen de perfil:</label>
-                    <input type="file" id="profileImage" name="profileImage" accept="image/*">
+                <div class="control-group mb-3">
+                    <input type="file" class="form-control" name="profileImage" id="profileImage" />
+                    <% if (typeof errors !== 'undefined' && errors.profileImage) { %>
+                        <p class="help-block text-danger"><%= errors.profileImage.msg %></p>
+                    <% } %>
                 </div>
-                <div class="checkbox">
-                    <input type="checkbox" id="remember-me" name="remember-me">
-                    <label for="remember-me">Guardar contraseña</label>
+                <div>
+                    <button class="btn btn-primary py-2 px-4" type="submit" id="registerButton">Registrarse</button>
                 </div>
-                <button type="submit">Registrarse</button>
             </form>
         </div>
     </div>
@@ -106,6 +110,7 @@
     </script>
 
 <script>
+    /*
     function validateForm() {
         let isValid = true;
 
@@ -155,7 +160,7 @@
         }
 
         return isValid;
-    }
+    }*/
 </script>
 
 </body>

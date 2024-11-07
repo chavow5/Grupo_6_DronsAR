@@ -116,8 +116,9 @@ app.get('/contact', (req, res) => {
 
 // Ruta página de login
 app.get('/login', (req, res) => {
-    res.render('users/login');
-});
+    const { email, error } = req.query; // Si estás pasando email desde una redirección
+    res.render('users/login', { email, error });
+  });
 // Ruta página de registro de usuarios
 app.get('/registro', (req, res) => {
     res.render('users/registro');
