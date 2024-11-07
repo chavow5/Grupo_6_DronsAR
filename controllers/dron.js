@@ -1,10 +1,9 @@
 'use strict';
 
 const db = require('../database/models');
-
 const { Product, Category } = db;
-
 const crypto = require('crypto');
+const { validationResult } = require('express-validator');
 
 
 
@@ -39,59 +38,61 @@ const dronController = {
     }
   },
 
-  // Método para mostrar el formulario de agregar producto
-  getAddForm: async (req, res) => {
-    try {
+  // Método para mostrar el formulario de agregar producto 
+getAddForm: async (req, res) => {
+  try {
       const categories = await Category.findAll();
-      res.render('products/agregarProducto', { categories });
-    } catch (error) {
+      res.render('products/agregarProducto', {
+          categories,
+          oldData: {},  // Asegura que oldData esté definido como un objeto vacío
+          errors: {}    // Asegura que errors esté definido como un objeto vacío
+      });
+  } catch (error) {
       console.error('Error al cargar el formulario de agregar producto:', error);
       res.status(500).send('Error interno del servidor');
-    }
-  },
+  }
+},
 
 
-  // Método para agregar un producto
+
   create: async (req, res) => {
-    try {
-      const { nombre, marca, modelo, descripcion, category_id, precio, peso, duracionBateria, camara, tipoSensores, altura, velocidad, descuento, image } = req.body;
-
-      // Validaciones simples (se puede mejorar con más validaciones)
-      if (!nombre || !marca || !precio) {
-        throw new Error('Los campos nombre, marca y precio son obligatorios');
-      }
-
-      // Crear el nuevo producto
-      const newProduct = await Product.create({
-        id: crypto.randomUUID(),
-        nombre,
-        marca,
-        modelo,
-        descripcion,
-        category_id,
-        precio,
-        peso,
-        duracionBateria,
-        camara,
-        tipoSensores,
-        altura,
-        velocidad,
-        descuento,
-        image: req.file ? req.file.filename : 'default.png' // Si no se sube imagen, usar default
-      });
-
-       // Obtener el último ID creado
-    const lastProduct = await Product.findOne({
-      order: [['createdAt', 'DESC']], // Obtener el último producto por fecha de creación
+  // Capturar errores de validación
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const errorsMapped = errors.mapped();
+    const categories = await Category.findAll();
+    return res.status(400).render('products/agregarProducto', {
+      errors: errorsMapped, // Enviar mensajes de error
+      oldData: req.body,    // Mantener datos ingresados
+      categories            // Mantener la lista de categorías
     });
+  }
 
-    console.log("Último ID creado:", lastProduct.id); // Puedes usar esto como quieras
+  const {
+    nombre, marca, modelo, descripcion, category_id,
+    precio, peso, duracionBateria, camara,
+    tipoSensores, altura, velocidad, descuento
+  } = req.body;
+
+  try {
+    // Crear el nuevo producto
+    const newProduct = await Product.create({
+      id: crypto.randomUUID(),
+      nombre, marca, modelo, descripcion, category_id,
+      precio, peso, duracionBateria, camara,
+      tipoSensores, altura, velocidad, descuento,
+      image: req.file ? req.file.filename : 'default.png'
+    });
 
     // Redirigir a la lista de productos
     res.redirect('/productos');
   } catch (error) {
     console.error('Error al crear el producto:', error);
-    res.status(500).send('Error interno del servidor');
+    res.status(500).render('products/agregarProducto', {
+      errors: { general: { msg: 'Hubo un problema al crear el producto. Por favor intenta nuevamente.' } },
+      oldData: req.body,
+      categories: await Category.findAll()
+    });
   }
 },
   

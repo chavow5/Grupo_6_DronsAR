@@ -6,68 +6,138 @@
     <br>
     <div class="container mt-5" >
         <h2  style="margin-top: 50px;">Agregar Nuevo Producto</h2>
-        <form action="/productos/agregar" method="POST" enctype="multipart/form-data">
-            <div class="form-group">
+        <br>
+        <form name="productForm" id="productForm" action="/productos/agregar" method="POST" enctype="multipart/form-data" novalidate="novalidate">
+            <div class="control-group mb-3">
                 <label for="nombre">Nombre:</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre del producto" required="required" 
+                       value="<%= oldData && oldData.nombre ? oldData.nombre : '' %>" 
+                       data-validation-required-message="Por favor, ingresa el nombre del producto" />
+                <% if (typeof errors !== 'undefined' && errors.nombre) { %>
+                    <p class="help-block text-danger"><%= errors.nombre.msg %></p>
+                <% } %>
             </div>
-            <div class="form-group">
+        
+            <div class="control-group mb-3">
                 <label for="marca">Marca:</label>
-                <input type="text" class="form-control" id="marca" name="marca" required>
+                <input type="text" class="form-control" name="marca" id="marca" placeholder="Marca" required="required"
+                       value="<%= oldData && oldData.marca ? oldData.marca : '' %>"
+                       data-validation-required-message="Por favor, ingresa la marca" />
+                <% if (typeof errors !== 'undefined' && errors.marca) { %>
+                    <p class="help-block text-danger"><%= errors.marca.msg %></p>
+                <% } %>
             </div>
-            <div class="form-group">
+        
+            <div class="control-group mb-3">
                 <label for="modelo">Modelo:</label>
-                <input type="text" class="form-control" id="modelo" name="modelo" required>
+                <input type="text" class="form-control" name="modelo" id="modelo" placeholder="Modelo" required="required"
+                       value="<%= oldData && oldData.modelo ? oldData.modelo : '' %>"
+                       data-validation-required-message="Por favor, ingresa el modelo" />
+                <% if (typeof errors !== 'undefined' && errors.modelo) { %>
+                    <p class="help-block text-danger"><%= errors.modelo.msg %></p>
+                <% } %>
             </div>
-            <div class="form-group">
+        
+            <div class="control-group mb-3">
                 <label for="descripcion">Descripción:</label>
-                <textarea class="form-control" id="descripcion" name="descripcion" rows="4" required></textarea>
+                <textarea class="form-control" name="descripcion" id="descripcion" placeholder="Descripción" rows="4" required="required"
+                          data-validation-required-message="Por favor, ingresa una descripción"><%= oldData && oldData.descripcion ? oldData.descripcion : '' %></textarea>
+                <% if (typeof errors !== 'undefined' && errors.descripcion) { %>
+                    <p class="help-block text-danger"><%= errors.descripcion.msg %></p>
+                <% } %>
             </div>
+        
             <div class="form-group">
                 <label for="category_id">Categoría:</label>
                 <select class="form-control" id="category_id" name="category_id" required>
-                  <% categories.forEach(category => { %>
-                    <option value="<%= category.id %>"><%= category.nombre %></option>
-                  <% }) %>
+                    <% categories.forEach(category => { %>
+                        <option value="<%= category.id %>" <%= oldData && oldData.category_id == category.id ? 'selected' : '' %>><%= category.nombre %></option>
+                    <% }) %>
                 </select>
-              </div>
+            </div>
               
                        
-            <div class="form-group">
+            <div class="control-group mb-3">
                 <label for="precio">Precio:</label>
-                <input type="number" class="form-control" id="precio" name="precio" step="0.01" required>
+                <input type="number" class="form-control" name="precio" id="precio" placeholder="Precio" step="0.01" required="required" 
+                       value="<%= oldData && oldData.precio ? oldData.precio : '' %>"
+                       data-validation-required-message="Por favor, ingresa el precio" />
+                <% if (typeof errors !== 'undefined' && errors.precio) { %>
+                    <p class="help-block text-danger"><%= errors.precio.msg %></p>
+                <% } %>
             </div>
-            <div class="form-group">
+            
+            <div class="control-group mb-3">
                 <label for="peso">Peso:</label>
-                <input type="text" class="form-control" id="peso" name="peso" required>
+                <input type="text" class="form-control" name="peso" id="peso" placeholder="Peso" required="required"
+                       value="<%= oldData && oldData.peso ? oldData.peso : '' %>"
+                       data-validation-required-message="Por favor, ingresa el peso" />
+                <% if (typeof errors !== 'undefined' && errors.peso) { %>
+                    <p class="help-block text-danger"><%= errors.peso.msg %></p>
+                <% } %>
             </div>
-            <div class="form-group">
-                <label for="duracionBateria">Duración de Batería:</label>
-                <input type="text" class="form-control" id="duracionBateria" name="duracionBateria" required>
+            
+            <div class="control-group mb-3">
+                <label for="duracionBateria">Duración Bateria:</label>
+                <input type="text" class="form-control" name="duracionBateria" id="duracionBateria" placeholder="Duración de Batería" required="required"
+                       value="<%= oldData && oldData.duracionBateria ? oldData.duracionBateria : '' %>"
+                       data-validation-required-message="Por favor, ingresa la duración de la batería" />
+                <% if (typeof errors !== 'undefined' && errors.duracionBateria) { %>
+                    <p class="help-block text-danger"><%= errors.duracionBateria.msg %></p>
+                <% } %>
             </div>
-            <div class="form-group">
-                <label for="camara">Cámara:</label>
-                <input type="text" class="form-control" id="camara" name="camara" required>
+            
+            <div class="control-group mb-3">
+                <label for="camara">Camara:</label>
+                <input type="text" class="form-control" name="camara" id="camara" placeholder="Cámara" required="required"
+                       value="<%= oldData && oldData.camara ? oldData.camara : '' %>"
+                       data-validation-required-message="Por favor, ingresa el tipo de cámara" />
+                <% if (typeof errors !== 'undefined' && errors.camara) { %>
+                    <p class="help-block text-danger"><%= errors.camara.msg %></p>
+                <% } %>
             </div>
-            <div class="form-group">
-                <label for="tipoSensores">Tipo de Sensores:</label>
-                <input type="text" class="form-control" id="tipoSensores" name="tipoSensores" required>
+            
+            <div class="control-group mb-3">
+                <label for="tipoSensores">Tipo sensores:</label>
+                <input type="text" class="form-control" name="tipoSensores" id="tipoSensores" placeholder="Tipo de Sensores" required="required"
+                       value="<%= oldData && oldData.tipoSensores ? oldData.tipoSensores : '' %>"
+                       data-validation-required-message="Por favor, ingresa el tipo de sensores" />
+                <% if (typeof errors !== 'undefined' && errors.tipoSensores) { %>
+                    <p class="help-block text-danger"><%= errors.tipoSensores.msg %></p>
+                <% } %>
             </div>
-            <div class="form-group">
+            
+            <div class="control-group mb-3">
                 <label for="altura">Altura:</label>
-                <input type="text" class="form-control" id="altura" name="altura" required>
+                <input type="text" class="form-control" name="altura" id="altura" placeholder="Altura" required="required"
+                       value="<%= oldData && oldData.altura ? oldData.altura : '' %>"
+                       data-validation-required-message="Por favor, ingresa la altura" />
+                <% if (typeof errors !== 'undefined' && errors.altura) { %>
+                    <p class="help-block text-danger"><%= errors.altura.msg %></p>
+                <% } %>
             </div>
-            <div class="form-group">
+            
+            <div class="control-group mb-3">
                 <label for="velocidad">Velocidad:</label>
-                <input type="text" class="form-control" id="velocidad" name="velocidad" required>
+                <input type="text" class="form-control" name="velocidad" id="velocidad" placeholder="Velocidad" required="required"
+                       value="<%= oldData && oldData.velocidad ? oldData.velocidad : '' %>"
+                       data-validation-required-message="Por favor, ingresa la velocidad" />
+                <% if (typeof errors !== 'undefined' && errors.velocidad) { %>
+                    <p class="help-block text-danger"><%= errors.velocidad.msg %></p>
+                <% } %>
             </div>
             <div class="form-group">
                 <label for="image">Imagen:</label>
                 <input type="file" class="form-control-file" id="image" name="image">
             </div>
-            <div class="form-group">
+            <div class="control-group mb-3">
                 <label for="descuento">Descuento:</label>
-                <input type="number" class="form-control" id="descuento" name="descuento" step="0.01" value="0">
+                <input type="number" class="form-control" name="descuento" id="descuento" placeholder="Descuento" step="0.01" value="0" required="required"
+                       value="<%= oldData && oldData.descuento ? oldData.descuento : '' %>"
+                       data-validation-required-message="Por favor, ingresa el descuento" />
+                <% if (typeof errors !== 'undefined' && errors.descuento) { %>
+                    <p class="help-block text-danger"><%= errors.descuento.msg %></p>
+                <% } %>
             </div>
             <button type="submit" class="btn btn-primary">Agregar Producto</button>
         </form>
