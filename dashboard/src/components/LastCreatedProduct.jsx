@@ -1,5 +1,8 @@
+// src/components/LastCreatedProduct.jsx
 import React, { useEffect, useState } from 'react';
 import { fetchLastCreatedProduct } from '../apiService';  // Importar la función fetchLastCreatedProduct
+import 'bootstrap/dist/css/bootstrap.min.css';  // Importa Bootstrap
+import '../styles/LastCreatedProduct.css';
 
 const LastCreatedProduct = () => {
   const [lastProduct, setLastProduct] = useState(null);  // Estado para el último producto
@@ -24,30 +27,41 @@ const LastCreatedProduct = () => {
   }, []);  // Solo se ejecuta una vez al montar el componente
 
   if (loading) {
-    return <div>Cargando...</div>;  // Muestra cargando mientras se obtiene el producto
+    return <div className="text-center my-5"><div className="spinner-border" role="status"><span className="visually-hidden">Cargando...</span></div></div>;  // Muestra cargando mientras se obtiene el producto
   }
 
   if (error) {
-    return <div>{error}</div>;  // Muestra el error si hay uno
+    return <div className="text-center my-5">{error}</div>;  // Muestra el error si hay uno
   }
 
   if (!lastProduct) {
-    return <div>No hay productos disponibles.</div>;  // Si no se encuentra el producto
+    return <div className="text-center my-5">No hay productos disponibles.</div>;  // Si no se encuentra el producto
   }
 
   return (
-    <div>
-      <h2>Último Producto Creado</h2>
-      <h3>{lastProduct.nombre}</h3> {/* Muestra el nombre del último producto */}
-      <p><strong>Marca:</strong> {lastProduct.marca}</p>
-      <p><strong>Modelo:</strong> {lastProduct.modelo}</p>
-      <p><strong>Descripción:</strong> {lastProduct.descripcion}</p>
-      <p><strong>Precio:</strong> ${lastProduct.precio}</p>
-      <img 
-        src={`/img/productsImg/${lastProduct.image}`} 
-        alt={lastProduct.nombre} 
-        style={{ width: '200px', height: 'auto' }} 
-      />
+    <div className="container-fluid my-5">
+      <div className="row">
+        {/* Columna para el contenido del producto */}
+        <div className="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+          <h2 className="text-center mb-4">Último Producto Creado</h2>
+          <div className="card shadow-sm">
+            <div className="image-container">
+              <img
+                src={`/img/productsImg/${lastProduct.image}`}
+                alt={lastProduct.nombre}
+                className="card-img-top"
+              />
+            </div>
+            <div className="card-body">
+              <h5 className="card-title">{lastProduct.nombre}</h5>
+              <p className="card-text"><strong>Marca:</strong> {lastProduct.marca}</p>
+              <p className="card-text"><strong>Modelo:</strong> {lastProduct.modelo}</p>
+              <p className="card-text"><strong>Descripción:</strong> {lastProduct.descripcion}</p>
+              <p className="card-text"><strong>Precio:</strong> ${lastProduct.precio}</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

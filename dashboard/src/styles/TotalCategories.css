@@ -1,0 +1,20 @@
+/* src/styles/TotalCategories.css */
+.card {
+    max-width: 18rem;  /* Ancho máximo de la tarjeta */
+    margin: 0 auto;  /* Centra la tarjeta */
+}
+
+.card-body h5 {
+    font-size: 1.25rem;  /* Tamaño de la fuente del título */
+}
+
+.card-body h2 {
+    font-size: 3rem;  /* Tamaño de la fuente para el contador */
+    font-weight: 700;  /* Hacer el número más grueso */
+}
+
+@media (max-width: 576px) {
+    .card-body h2 {
+        font-size: 2rem;  /* Ajustar el tamaño del contador en pantallas pequeñas */
+    }
+}

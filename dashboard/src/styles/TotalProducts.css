@@ -1,0 +1,24 @@
+/* src/styles/TotalProducts.css */
+.card {
+  max-width: 18rem;  /* Ajusta el tamaño máximo de la tarjeta */
+  margin: 0 auto;    /* Centra la tarjeta en la página */
+}
+
+.card-body {
+  padding: 2rem;    /* Da espacio dentro de la tarjeta */
+}
+
+.card-title {
+  font-size: 1.25rem;  /* Ajusta el tamaño del título */
+}
+
+.card-text {
+  font-size: 3rem;  /* Ajusta el tamaño del contador */
+  font-weight: 700;  /* Resalta el número */
+}
+
+@media (max-width: 576px) {
+  .card-text {
+    font-size: 2.5rem;  /* Ajusta el tamaño del contador en pantallas pequeñas */
+  }
+}

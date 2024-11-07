@@ -1,16 +1,114 @@
-/* dashboard/src/Dashboard.css */
-
+/* Estilos generales del layout para el dashboard */
 .dashboard-container {
-    display: flex;
+  display: flex;
+  height: 100vh;
+  justify-content: flex-start;  /* Alineación del contenido */
+  align-items: flex-start; /* Mantiene el contenido alineado al principio */
+  padding: 20px;
+  box-sizing: border-box;
+  flex-wrap: wrap; /* Permite que los elementos se ajusten en pantallas pequeñas */
+}
+
+/* Estilos para el sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 30%;  /* Establecer el ancho del sidebar al 30% */
+  height: 100vh;  /* Altura completa de la pantalla */
+  background-color: #0b0b0b;  /* Color de fondo del menú */
+  z-index: 1000;  /* Asegura que el menú esté sobre otros elementos */
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.menu-item {
+  color: white;  /* Color de texto blanco para el contraste */
+  font-size: 1rem;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;  /* Añadido para suavizar el cambio de color */
+}
+
+.menu-item:hover {
+  background-color: #097cf0;  /* Color al pasar el ratón */
+  border-radius: 10px;
+}
+
+/* Estilos para el contenido principal */
+.main-content {
+  margin-left: 30%; /* Ajustar el margen para que el contenido principal se desplace al lado derecho del sidebar */
+  padding: 20px;
+  width: 70%; /* Establecer el ancho del contenido al 70% */
+  transition: margin-left 0.3s ease;  /* Suaviza el cambio de margen */
+}
+
+/* Ajustes de estilo para los elementos dentro del contenido principal */
+h2 {
+  text-align: center;
+  color: #333;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+h3 {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #555;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+/* Estilos para las tarjetas de información */
+.card {
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  text-align: center;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #555;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Responsividad: Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column; /* Cambiar de fila a columna en pantallas pequeñas */
   }
-  
-  .pro-sidebar {
-    width: 250px;
+
+  .sidebar {
+    width: 100%; /* El sidebar ocupará todo el ancho en pantallas pequeñas */
+    margin-bottom: 20px;
   }
-  
-  .content {
-    flex: 1;
-    padding: 20px;
-    overflow: auto;
+
+  .main-content {
+    width: 100%; /* El contenido ocupa el 100% del ancho en pantallas pequeñas */
+    margin-left: 0;
   }
-  
+}

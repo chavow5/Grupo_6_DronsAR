@@ -1,40 +1,38 @@
-// dashboard/src/components/CategoriesWithProducts.jsx
 import React, { useEffect, useState } from 'react';
-import { fetchCategoriesWithProducts } from '../apiService';  // Importar la función existente
+import { fetchCategoriesWithProducts } from '../apiService';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/CategoriesWithProducts.css';
 
 function CategoriesWithProducts() {
-  const [categories, setCategories] = useState([]);  // Estado para las categorías
-  const [loading, setLoading] = useState(true);  // Estado para la carga
-  const [error, setError] = useState(null);  // Estado para los errores
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Efecto para obtener las categorías con el total de productos
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const data = await fetchCategoriesWithProducts();  // Llamar a la función de apiService
-        setCategories(data);  // Guardar las categorías en el estado
+        const data = await fetchCategoriesWithProducts();
+        setCategories(data);
       } catch (err) {
-        console.error('Error al obtener las categorías:', err);  // Manejo de error
         setError('No se pudieron cargar las categorías.');
       } finally {
-        setLoading(false);  // Termina el estado de carga
+        setLoading(false);
       }
     };
 
-    fetchCategories();  // Llamar a la función fetchCategories al cargar el componente
-  }, []);  // Solo se ejecuta una vez al montar el componente
+    fetchCategories();
+  }, []);
 
   if (loading) {
-    return <div>Cargando...</div>;  // Muestra cargando mientras se obtienen las categorías
+    return <div>Cargando...</div>;
   }
 
   if (error) {
-    return <div>{error}</div>;  // Muestra el error si hay uno
+    return <div>{error}</div>;
   }
 
   if (categories.length === 0) {
-    return <div>No hay categorías disponibles.</div>;  // Si no hay categorías disponibles
+    return <div>No hay categorías disponibles.</div>;
   }
 
   return (
