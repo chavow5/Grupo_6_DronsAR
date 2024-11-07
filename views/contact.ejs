@@ -41,19 +41,28 @@
                     <form name="sentMessage" id="contactForm" action="/contact" method="POST" novalidate="novalidate">
                         <div class="control-group mb-3">
                             <input type="text" class="form-control" name="nombre" id="name" placeholder="Tu Nombre" required="required" data-validation-required-message="Por favor, ingresa tu nombre" />
-                            <p class="help-block text-danger"></p>
+                            <% if (typeof errors !== 'undefined' && errors.nombre) { %>
+                                <p class="help-block text-danger"><%= errors.nombre.msg %></p>
+                            <% } %>
+                            
                         </div>
                         <div class="control-group mb-3">
                             <input type="email" class="form-control" name="email" id="email" placeholder="Tú Email" required="required" data-validation-required-message="Por favor, ingresa tu email" />
-                            <p class="help-block text-danger"></p>
+                            <% if (typeof errors !== 'undefined' && errors.email) { %>
+                                <p class="help-block text-danger"><%= errors.email.msg %></p>
+                            <% } %>
                         </div>
                         <div class="control-group mb-3">
                             <input type="text" class="form-control" name="asunto" id="subject" placeholder="Asunto" required="required" data-validation-required-message="Por favor, ingresa un asunto" />
-                            <p class="help-block text-danger"></p>
+                            <% if (typeof errors !== 'undefined' && errors.asunto) { %>
+                                <p class="help-block text-danger"><%= errors.asunto.msg %></p>
+                            <% } %>
                         </div>
                         <div class="control-group mb-3">
                             <textarea class="form-control" rows="6" name="mensaje" id="message" placeholder="Escribe aquí tu mensaje" required="required" data-validation-required-message="Por favor, ingresa tu mensaje"></textarea>
-                            <p class="help-block text-danger"></p>
+                            <% if (typeof errors !== 'undefined' && errors.mensaje) { %>
+                                <p class="help-block text-danger"><%= errors.mensaje.msg %></p>
+                            <% } %>
                         </div>
                         <div>
                             <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Enviar</button>
@@ -80,7 +89,7 @@
     </div>
     <%- include('partials/footer') %>
     <script>
-        // Función para validar el formulario antes de enviarlo
+        /* Función para validar el formulario antes de enviarlo
         document.getElementById("contactForm").addEventListener("submit", function(event) {
             // Prevenir el envío si hay campos vacíos
             let isValid = true;
@@ -134,7 +143,7 @@
         function validateEmail(email) {
             const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             return regex.test(email);
-        }
+        } */
     </script>
     
 </body>
