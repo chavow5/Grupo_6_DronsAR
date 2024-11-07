@@ -39,10 +39,10 @@ const LastCreatedProduct = () => {
   }
 
   return (
-    <div className="container-fluid my-5">
+    <div className="container-fluid my-1">
       <div className="row">
         {/* Columna para el contenido del producto */}
-        <div className="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+        <div className="col-md-12 col-sm-6 mb-3">
           <h2 className="text-center mb-4">Último Producto Creado</h2>
           <div className="card shadow-sm">
             <div className="image-container">

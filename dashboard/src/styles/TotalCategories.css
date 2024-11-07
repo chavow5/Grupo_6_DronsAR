@@ -1,20 +1,29 @@
-/* src/styles/TotalCategories.css */
 .card {
-    max-width: 18rem;  /* Ancho máximo de la tarjeta */
-    margin: 0 auto;  /* Centra la tarjeta */
-}
-
-.card-body h5 {
-    font-size: 1.25rem;  /* Tamaño de la fuente del título */
-}
-
-.card-body h2 {
-    font-size: 3rem;  /* Tamaño de la fuente para el contador */
-    font-weight: 700;  /* Hacer el número más grueso */
-}
-
-@media (max-width: 576px) {
-    .card-body h2 {
-        font-size: 2rem;  /* Ajustar el tamaño del contador en pantallas pequeñas */
+    max-width: 18rem;
+    margin: 20px auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    border: none;
+  }
+  
+  .card-body {
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .card-text {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #555;
+  }
+  
+  @media (max-width: 576px) {
+    .card-text {
+      font-size: 2.5rem;
     }
-}
+  }

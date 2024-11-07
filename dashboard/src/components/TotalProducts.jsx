@@ -20,11 +20,11 @@ function TotalProducts() {
   return (
     <div className="container my-3">
       <div className="row justify-content-center">
-        <div className="col-md-4 col-sm-6">
+      <div className="col-md-4 col-sm-6">
           <div className="card text-center shadow-sm">
             <div className="card-body">
               <h5 className="card-title text-primary mb-3">Total de Productos</h5>
-              <p className="card-text display-4 fw-bold">{totalProducts}</p>
+              <h2 className="display-4 fw-bold">{totalProducts}</h2>
             </div>
           </div>
         </div>

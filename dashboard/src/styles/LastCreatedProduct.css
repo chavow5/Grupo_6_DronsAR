@@ -25,10 +25,12 @@
 .card-title {
   font-size: 1.5rem;
   font-weight: bold;
+  margin-bottom: 0.75rem; /* Espacio debajo del título */
 }
 
 .card-text {
   font-size: 1rem;
+  color: #555; /* Color ligeramente más oscuro para el texto */
 }
 
 .text-center {
@@ -56,8 +58,17 @@
   width: 100%;
   max-width: 500px; /* Limita el tamaño máximo de la tarjeta */
   margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Añade sombra sutil a la tarjeta */
+  border-radius: 8px; /* Bordes redondeados */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efectos de transición suaves */
 }
 
+.card:hover {
+  transform: translateY(-5px);  /* Eleva ligeramente la tarjeta al pasar el ratón */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15); /* Aumenta la sombra */
+}
+
+/* Responsividad */
 @media (max-width: 768px) {
   .container-fluid {
     margin-top: 2rem;
@@ -73,5 +84,19 @@
 
   .card-text {
     font-size: 0.9rem;  /* Reducir el tamaño del texto */
+  }
+
+  .card {
+    margin: 0 1rem;  /* Añade un pequeño margen a los lados de las tarjetas */
+  }
+}
+
+@media (max-width: 576px) {
+  .image-container {
+    height: 200px;  /* Ajustar la altura de la imagen en pantallas pequeñas */
+  }
+
+  .card {
+    max-width: 100%; /* Tarjeta ocupa el 100% del ancho en pantallas pequeñas */
   }
 }
